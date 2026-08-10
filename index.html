@@ -31,6 +31,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -42,7 +43,7 @@
         /* Navbar Header */
         header {
             background-color: rgba(15, 23, 42, 0.95);
-            padding: 1.5rem 2rem;
+            padding: 1rem 1.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             position: sticky;
             top: 0;
@@ -54,7 +55,7 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 800;
             letter-spacing: -0.5px;
             background: linear-gradient(to right, #60a5fa, #a78bfa);
@@ -65,7 +66,8 @@
         .nav-links a {
             color: var(--text-muted);
             text-decoration: none;
-            margin-left: 2rem;
+            margin-left: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             transition: color 0.2s;
         }
@@ -78,7 +80,31 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 2rem 1rem;
+        }
+
+        /* Search Section */
+        .search-container {
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.85rem 1.25rem;
+            border-radius: 50px;
+            background-color: var(--bg-card);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-box:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
         }
 
         /* Tier Sections */
@@ -95,7 +121,7 @@
         }
 
         .tier-title {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -108,15 +134,15 @@
         /* Grid Layout */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.25rem;
         }
 
         /* Card Design */
         .card {
             background-color: var(--bg-card);
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1.25rem;
             position: relative;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -124,50 +150,35 @@
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
             background-color: var(--bg-card-hover);
         }
 
         /* Tier Borders */
         .mythic-card { border-top: 4px solid var(--mythic); box-shadow: 0 -4px 20px rgba(30, 58, 138, 0.1); }
-        .mythic-card:hover { box-shadow: 0 10px 25px rgba(30, 58, 138, 0.2); }
-
         .fabled-card { border-top: 4px solid var(--fabled); box-shadow: 0 -4px 20px rgba(220, 38, 38, 0.1); }
-        .fabled-card:hover { box-shadow: 0 10px 25px rgba(220, 38, 38, 0.2); }
-
         .legendary-card { border-top: 4px solid var(--legendary); box-shadow: 0 -4px 20px rgba(234, 179, 8, 0.1); }
-        .legendary-card:hover { box-shadow: 0 10px 25px rgba(234, 179, 8, 0.2); }
 
         /* Card Content */
         .card-title {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 800;
-            margin-bottom: 1rem;
+            margin-bottom: 0.85rem;
             text-align: center;
             letter-spacing: 0.5px;
         }
 
-        .card-img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 1.25rem;
-            background-color: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
         .image-placeholder {
             width: 100%;
-            height: 140px;
+            height: 120px;
             background-color: rgba(0, 0, 0, 0.3);
             border-radius: 8px;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-muted);
-            font-size: 0.875rem;
+            font-size: 0.85rem;
             border: 1px dashed rgba(255, 255, 255, 0.1);
         }
 
@@ -175,8 +186,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.75rem;
-            font-size: 0.95rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.9rem;
         }
 
         .stat-label {
@@ -201,14 +212,14 @@
 
         /* Demand Bar */
         .demand-container {
-            margin-top: 1rem;
+            margin-top: 0.85rem;
         }
         
         .demand-bar-bg {
             height: 6px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 3px;
-            margin-top: 0.5rem;
+            margin-top: 0.4rem;
             overflow: hidden;
         }
 
@@ -216,6 +227,79 @@
             height: 100%;
             border-radius: 3px;
         }
+
+        /* Calculator Section */
+        .calculator-section {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            margin-top: 4rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .calc-title {
+            text-align: center;
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .calc-box {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 1.25rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .calc-box h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .calc-select-group {
+            margin-bottom: 0.75rem;
+        }
+
+        .calc-select {
+            width: 100%;
+            padding: 0.6rem;
+            border-radius: 8px;
+            background-color: var(--bg-card-hover);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .calc-result {
+            margin-top: 2rem;
+            text-align: center;
+            padding: 1.25rem;
+            background-color: var(--bg-card-hover);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .calc-status {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-top: 0.5rem;
+        }
+
+        .status-win { color: var(--rising); }
+        .status-fair { color: var(--stable); }
+        .status-loss { color: var(--dropping); }
     </style>
 </head>
 <body>
@@ -223,211 +307,155 @@
     <header>
         <div class="logo">Prior Extinction Tracker</div>
         <nav class="nav-links">
-            <a href="#">Values</a>
-            <a href="#">Calculator</a>
-            <a href="#">Discord</a>
+            <a href="#values">Values</a>
+            <a href="#calculator">Calculator</a>
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container" id="values">
         
+        <!-- SEARCH BAR -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-box" placeholder="Search skins..." onkeyup="filterSkins()">
+        </div>
+
         <!-- MYTHIC TIER -->
         <section class="tier-section">
             <div class="tier-header">
                 <h2 class="tier-title mythic-title">Mythic Tier</h2>
             </div>
             
-            <div class="grid">
-                <!-- Item 1: King Alask -->
-                <div class="card mythic-card">
+            <div class="grid" id="mythicGrid">
+
+                <!-- 1. King Alask -->
+                <div class="card mythic-card" data-name="king alask" data-value="85">
                     <div class="card-title">King Alask</div>
                     <div class="image-placeholder">Skin Image</div>
-                    
-                    <div class="stat-row">
-                        <span class="stat-label">Value:</span>
-                        <span class="stat-value">50k - 120k</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Trend:</span>
-                        <span class="stat-value trend-rising">
-                            <span class="trend-icon">↗</span> Rising
-                        </span>
-                    </div>
-                    
+                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">50k - 120k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
                     <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom: 0;">
-                            <span class="stat-label">Demand:</span>
-                            <span class="stat-value">9/10</span>
-                        </div>
-                        <div class="demand-bar-bg">
-                            <div class="demand-fill" style="width: 90%; background-color: var(--rising);"></div>
-                        </div>
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">9/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 90%; background-color: var(--rising);"></div></div>
                     </div>
                 </div>
 
-                <!-- Item 2: Nordlys -->
-                <div class="card mythic-card">
+                <!-- 2. Nordlys -->
+                <div class="card mythic-card" data-name="nordlys" data-value="47">
                     <div class="card-title">Nordlys</div>
                     <div class="image-placeholder">Skin Image</div>
-                    
-                    <div class="stat-row">
-                        <span class="stat-label">Value:</span>
-                        <span class="stat-value">64k - 30k</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Trend:</span>
-                        <span class="stat-value trend-dropping">
-                            <span class="trend-icon">↘</span> Dropping
-                        </span>
-                    </div>
-                    
+                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">64k - 30k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-dropping"><span class="trend-icon">↘</span> Dropping</span></div>
                     <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom: 0;">
-                            <span class="stat-label">Demand:</span>
-                            <span class="stat-value">3/10</span>
-                        </div>
-                        <div class="demand-bar-bg">
-                            <div class="demand-fill" style="width: 30%; background-color: var(--dropping);"></div>
-                        </div>
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">3/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 30%; background-color: var(--dropping);"></div></div>
                     </div>
                 </div>
 
-                <!-- Item 3: Liberty -->
-                <div class="card mythic-card">
+                <!-- 3. Liberty -->
+                <div class="card mythic-card" data-name="liberty" data-value="80">
                     <div class="card-title">Liberty</div>
                     <div class="image-placeholder">Skin Image</div>
-                    
-                    <div class="stat-row">
-                        <span class="stat-label">Value:</span>
-                        <span class="stat-value">80k</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Trend:</span>
-                        <span class="stat-value trend-rising">
-                            <span class="trend-icon">↗</span> Rising
-                        </span>
-                    </div>
-                    
+                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">80k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
                     <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom: 0;">
-                            <span class="stat-label">Demand:</span>
-                            <span class="stat-value">7/10</span>
-                        </div>
-                        <div class="demand-bar-bg">
-                            <div class="demand-fill" style="width: 70%; background-color: var(--stable);"></div>
-                        </div>
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">7/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 70%; background-color: var(--stable);"></div></div>
                     </div>
                 </div>
 
-                <!-- Item 4: Giga sub-species -->
-                <div class="card mythic-card">
+                <!-- 4. Giga sub-species -->
+                <div class="card mythic-card" data-name="giga sub-species" data-value="55">
                     <div class="card-title">Giga sub-species</div>
-                    <img src="https://www.google.com/search?client=ms-android-samsung-ss&hs=xN5&sca_esv=64b268b11d0571a2&sxsrf=APpeQnvrgQiPLbo2xkdBVAgIn00YUZQBZA:1786357250686&udm=2&fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8c4u0nXx4bEIpwm1lnNH832b1sC3PQ-MLX4CbUrRwXd2z42WCpWKSw_8cSvCgLxPIhXWxXFJDyr3JIhhyJ3DFgDwywjdNXeV5U_hZ1qf7AjiH-RRgMVaQReDZ2keu0xdYbrLu-4xCbto2_c9xP5bfw83N9iELbr1Uu-rcLCDIyawet3KYK2vyKRA_8CNvnpHQ2TJCuMA&q=prior+extinction+king+rex&sa=X&ved=2ahUKEwjz1Pmq65WWAxUcpCcCHbWsPB0QtKgLegQIExAB#sv=CAMSVxoyKhBlLVdWUkYtV1ZaRHR4MktNMg5XVlJGLVdWWkR0eDJLTToOa1hlSFdMWE9OeVNWeE0gBCoXCgFzEhBlLVdWUkYtV1ZaRHR4MktNGAEwAUoECAEQAhgHIJzTrOsMSggQAhgBIAIoAQ" alt="Giga sub-species" class="card-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="image-placeholder" style="display: none;">Giga Image</div>
-                    
-                    <div class="stat-row">
-                        <span class="stat-label">Value:</span>
-                        <span class="stat-value">50k - 60k</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Trend:</span>
-                        <span class="stat-value trend-stable">
-                            <span class="trend-icon">→</span> Stable
-                        </span>
-                    </div>
-                    
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">50k - 60k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
                     <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom: 0;">
-                            <span class="stat-label">Demand:</span>
-                            <span class="stat-value">6/10</span>
-                        </div>
-                        <div class="demand-bar-bg">
-                            <div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div>
-                        </div>
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div></div>
                     </div>
                 </div>
 
-                <!-- Item 5: Alask sub-species -->
-                <div class="card mythic-card">
+                <!-- 5. Alask sub-species -->
+                <div class="card mythic-card" data-name="alask sub-species" data-value="80">
                     <div class="card-title">Alask sub-species</div>
-                    <img src="https://www.google.com/search?client=ms-android-samsung-ss&hs=xN5&sca_esv=64b268b11d0571a2&sxsrf=APpeQnvrgQiPLbo2xkdBVAgIn00YUZQBZA:1786357250686&udm=2&fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8c4u0nXx4bEIpwm1lnNH832b1sC3PQ-MLX4CbUrRwXd2z42WCpWKSw_8cSvCgLxPIhXWxXFJDyr3JIhhyJ3DFgDwywjdNXeV5U_hZ1qf7AjiH-RRgMVaQReDZ2keu0xdYbrLu-4xCbto2_c9xP5bfw83N9iELbr1Uu-rcLCDIyawet3KYK2vyKRA_8CNvnpHQ2TJCuMA&q=prior+extinction+king+rex&sa=X&ved=2ahUKEwjz1Pmq65WWAxUcpCcCHbWsPB0QtKgLegQIExAB#sv=CAMSVxoyKhBlLWxRRVU3NXpZWmFWNWtNMg5sUUVVNzV6WVphVjVrTToOcS1hZzVkTEN4c0llQU0gBCoXCgFzEhBlLWxRRVU3NXpZWmFWNWtNGAEwAUoECAEQAhgHIOPbutwCSggQAhgBIAIoAQ" alt="Alask sub-species" class="card-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="image-placeholder" style="display: none;">Alask Image</div>
-                    
-                    <div class="stat-row">
-                        <span class="stat-label">Value:</span>
-                        <span class="stat-value">70k - 90k</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Trend:</span>
-                        <span class="stat-value trend-stable">
-                            <span class="trend-icon">→</span> Stable
-                        </span>
-                    </div>
-                    
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">70k - 90k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
                     <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom: 0;">
-                            <span class="stat-label">Demand:</span>
-                            <span class="stat-value">9/10</span>
-                        </div>
-                        <div class="demand-bar-bg">
-                            <div class="demand-fill" style="width: 90%; background-color: var(--rising);"></div>
-                        </div>
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">9/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 90%; background-color: var(--rising);"></div></div>
                     </div>
                 </div>
 
-                <!-- Item 6: Argent sub-species -->
-                <div class="card mythic-card">
+                <!-- 6. Argent sub-species -->
+                <div class="card mythic-card" data-name="argent sub-species" data-value="75">
                     <div class="card-title">Argent sub-species</div>
-                    <img src="https://www.google.com/search?q=prior+extinction+argent&client=ms-android-samsung-ss&hs=yN5&sca_esv=64b268b11d0571a2&udm=2&biw=384&bih=768&sxsrf=APpeQnsmaO1X87aItxa3OKMIFblci5AsbQ%3A1786357307210&ei=O6Z5av3ADK6HkdUPk8eu0AQ&oq=prior+extinction+argent&gs_lp=EhJtb2JpbGUtZ3dzLXdpei1pbWciF3ByaW9yIGV4dGluY3Rpb24gYXJnZW50MgQQABgeMgQQABgeSPkjUK0FWMEfcAB4AJABAJgBowOgAfEdqgEJMC40LjguMS4yuAEDyAEA-AEBmAIJoAKlEsICBxAjGMkCGCfCAgYQABgFGB7CAgcQABiABBgTwgIFEAAYgASYAwCIBgGSBwkwLjMuNC4wLjKgB8AmsgcJMC4zLjQuMC4yuAelEsIHBzAuMS43LjHIBzCACAE&sclient=mobile-gws-wiz-img#sv=CAMSVxoyKhBlLWFiQUdBcW0yeWVzTzdNMg5hYkFHQXFtMnllc083TToOcHprM0Fia0JranU2QU0gBCoXCgFzEhBlLWFiQUdBcW0yeWVzTzdNGAEwAUoECAEQAhgHIP_6grcGSggQAhgBIAIoAQ" alt="Argent sub-species" class="card-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="image-placeholder" style="display: none;">Argent Image</div>
-                    
-                    <div class="stat-row">
-                        <span class="stat-label">Value:</span>
-                        <span class="stat-value">60k - 90k</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Trend:</span>
-                        <span class="stat-value trend-stable">
-                            <span class="trend-icon">→</span> Stable
-                        </span>
-                    </div>
-                    
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">60k - 90k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
                     <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom: 0;">
-                            <span class="stat-label">Demand:</span>
-                            <span class="stat-value">8/10</span>
-                        </div>
-                        <div class="demand-bar-bg">
-                            <div class="demand-fill" style="width: 80%; background-color: var(--stable);"></div>
-                        </div>
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--stable);"></div></div>
                     </div>
                 </div>
 
-                <!-- Item 7: Maroc sub-species -->
-                <div class="card mythic-card">
+                <!-- 7. Maroc sub-species -->
+                <div class="card mythic-card" data-name="maroc sub-species" data-value="70">
                     <div class="card-title">Maroc sub-species</div>
-                    <img src="https://www.google.com/search?q=prior+extinction+spino+maroc&client=ms-android-samsung-ss&hs=F3Pq&sca_esv=64b268b11d0571a2&udm=2&sxsrf=APpeQnv9PnC790gMPOI0Q_jitCNI6niFQg%3A1786357253230&ei=BaZ5ar7dDdWLkdUPo5_M-Ak&biw=384&bih=768&oq=prior+extinction+spino+maroc&gs_lp=EhJtb2JpbGUtZ3dzLXdpei1pbWciHHByaW9yIGV4dGluY3Rpb24gc3Bpbm8gbWFyb2NIih1QuAVYwBxwAHgAkAEAmAGSAqAB4R2qAQYwLjEuMTa4AQPIAQD4AQGYAgigAocOwgIHECMYyQIYJ8ICBRAAGIAEwgIEEAAYHsICBxAAGIAEGBPCAgYQABgeGBPCAgYQABgFGB6YAwCIBgGSBwUwLjEuN6AHsh-yBwUwLjEuN7gHhw7CBwcwLjEuNS4yyAc1gAgB&sclient=mobile-gws-wiz-img#sv=CAMSVxoyKhBlLXBaSlZWS0xDYmdzOURNMg5wWkpWVktMQ2JnczlETToOY1Z0RFVva2wxRlJ1ZU0gBCoXCgFzEhBlLXBaSlZWS0xDYmdzOURNGAEwAUoECAEQAhgHIIPM77wCSggQAhgBIAIoAQ" alt="Maroc sub-species" class="card-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="image-placeholder" style="display: none;">Maroc Image</div>
-                    
-                    <div class="stat-row">
-                        <span class="stat-label">Value:</span>
-                        <span class="stat-value">60k - 80k</span>
-                    </div>
-                    <div class="stat-row">
-                        <span class="stat-label">Trend:</span>
-                        <span class="stat-value trend-stable">
-                            <span class="trend-icon">→</span> Stable
-                        </span>
-                    </div>
-                    
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">60k - 80k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
                     <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom: 0;">
-                            <span class="stat-label">Demand:</span>
-                            <span class="stat-value">8/10</span>
-                        </div>
-                        <div class="demand-bar-bg">
-                            <div class="demand-fill" style="width: 80%; background-color: var(--stable);"></div>
-                        </div>
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--stable);"></div></div>
+                    </div>
+                </div>
+
+                <!-- 8. Charon Spinosaurus -->
+                <div class="card mythic-card" data-name="charon spinosaurus" data-value="90">
+                    <div class="card-title">Charon Spinosaurus</div>
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">80k - 100k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--rising);"></div></div>
+                    </div>
+                </div>
+
+                <!-- 9. Geo sail Spino -->
+                <div class="card mythic-card" data-name="geo sail spino" data-value="65">
+                    <div class="card-title">Geo sail Spino</div>
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">60k - 70k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div></div>
+                    </div>
+                </div>
+
+                <!-- 10. Split jaw -->
+                <div class="card mythic-card" data-name="split jaw" data-value="300">
+                    <div class="card-title">Split jaw</div>
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">250k - 350k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">9/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 90%; background-color: var(--rising);"></div></div>
+                    </div>
+                </div>
+
+                <!-- 11. Multi Eyed -->
+                <div class="card mythic-card" data-name="multi eyed" data-value="275">
+                    <div class="card-title">Multi Eyed</div>
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">250k - 300k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--rising);"></div></div>
                     </div>
                 </div>
 
@@ -436,24 +464,138 @@
 
         <!-- FABLED TIER -->
         <section class="tier-section">
-            <div class="tier-header">
-                <h2 class="tier-title fabled-title">Fabled Tier</h2>
-            </div>
-            <div class="grid">
-                <p style="color: var(--text-muted); font-style: italic;">Items coming soon...</p>
-            </div>
+            <div class="tier-header"><h2 class="tier-title fabled-title">Fabled Tier</h2></div>
+            <div class="grid"><p style="color: var(--text-muted); font-style: italic;">Items coming soon...</p></div>
         </section>
 
         <!-- LEGENDARY TIER -->
         <section class="tier-section">
-            <div class="tier-header">
-                <h2 class="tier-title legendary-title">Legendary Tier</h2>
+            <div class="tier-header"><h2 class="tier-title legendary-title">Legendary Tier</h2></div>
+            <div class="grid"><p style="color: var(--text-muted); font-style: italic;">Items coming soon...</p></div>
+        </section>
+
+        <!-- TRADE CALCULATOR SECTION -->
+        <section class="calculator-section" id="calculator">
+            <h2 class="calc-title">Trade Calculator</h2>
+            <div class="calc-grid">
+                
+                <!-- Your Offer -->
+                <div class="calc-box">
+                    <h3 style="color: #60a5fa;">Your Offer</h3>
+                    <div class="calc-select-group"><select class="calc-select offer-item" onchange="calculateTrade()"></select></div>
+                    <div class="calc-select-group"><select class="calc-select offer-item" onchange="calculateTrade()"></select></div>
+                    <div class="calc-select-group"><select class="calc-select offer-item" onchange="calculateTrade()"></select></div>
+                    <div style="text-align: right; margin-top: 1rem; font-weight: 800;">
+                        Total Value: <span id="yourTotal">0</span>k
+                    </div>
+                </div>
+
+                <!-- Their Offer -->
+                <div class="calc-box">
+                    <h3 style="color: #f87171;">Their Offer</h3>
+                    <div class="calc-select-group"><select class="calc-select Request-item" onchange="calculateTrade()"></select></div>
+                    <div class="calc-select-group"><select class="calc-select Request-item" onchange="calculateTrade()"></select></div>
+                    <div class="calc-select-group"><select class="calc-select Request-item" onchange="calculateTrade()"></select></div>
+                    <div style="text-align: right; margin-top: 1rem; font-weight: 800;">
+                        Total Value: <span id="theirTotal">0</span>k
+                    </div>
+                </div>
+
             </div>
-            <div class="grid">
-                <p style="color: var(--text-muted); font-style: italic;">Items coming soon...</p>
+
+            <!-- Trade Result -->
+            <div class="calc-result">
+                <div>Trade Win/Loss Status:</div>
+                <div class="calc-status" id="calcStatus">FAIR TRADE</div>
             </div>
         </section>
 
     </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Search Filter Function
+        function filterSkins() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                if (name && name.includes(query)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize Trade Calculator Dropdowns dynamically from cards
+        const skinsList = [
+            { name: "None", value: 0 },
+            { name: "King Alask (85k)", value: 85 },
+            { name: "Nordlys (47k)", value: 47 },
+            { name: "Liberty (80k)", value: 80 },
+            { name: "Giga sub-species (55k)", value: 55 },
+            { name: "Alask sub-species (80k)", value: 80 },
+            { name: "Argent sub-species (75k)", value: 75 },
+            { name: "Maroc sub-species (70k)", value: 70 },
+            { name: "Charon Spinosaurus (90k)", value: 90 },
+            { name: "Geo sail Spino (65k)", value: 65 },
+            { name: "Split jaw (300k)", value: 300 },
+            { name: "Multi Eyed (275k)", value: 275 }
+        ];
+
+        function populateDropdowns() {
+            const selects = document.querySelectorAll('.calc-select');
+            selects.forEach(select => {
+                select.innerHTML = '';
+                skinsList.forEach(skin => {
+                    const option = document.createElement('option');
+                    option.value = skin.value;
+                    option.textContent = skin.name;
+                    select.appendChild(option);
+                });
+            });
+        }
+
+        function calculateTrade() {
+            const offerItems = document.querySelectorAll('.offer-item');
+            const requestItems = document.querySelectorAll('.Request-item');
+
+            let yourTotal = 0;
+            let theirTotal = 0;
+
+            offerItems.forEach(item => yourTotal += Number(item.value));
+            requestItems.forEach(item => theirTotal += Number(item.value));
+
+            document.getElementById('yourTotal').innerText = yourTotal;
+            document.getElementById('theirTotal').innerText = theirTotal;
+
+            const statusEl = document.getElementById('calcStatus');
+            const diff = theirTotal - yourTotal;
+
+            if (yourTotal === 0 && theirTotal === 0) {
+                statusEl.innerText = "ADD ITEMS TO CALCULATE";
+                statusEl.className = "calc-status";
+            } else if (diff > 15) {
+                statusEl.innerText = `BIG WIN (+${diff}k)`;
+                statusEl.className = "calc-status status-win";
+            } else if (diff >= 0) {
+                statusEl.innerText = `FAIR / SLIGHT WIN (+${diff}k)`;
+                statusEl.className = "calc-status status-win";
+            } else if (diff >= -15) {
+                statusEl.innerText = `FAIR / SLIGHT LOSS (${diff}k)`;
+                statusEl.className = "calc-status status-fair";
+            } else {
+                statusEl.innerText = `LOSE (${diff}k)`;
+                statusEl.className = "calc-status status-loss";
+            }
+        }
+
+        // Run setup on page load
+        window.onload = function() {
+            populateDropdowns();
+        };
+    </script>
 </body>
 </html>
