@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prior Extinction Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Tier Colors */
+            --mythic: #1e3a8a; /* Dark Blue */
+            --fabled: #dc2626; /* Red */
+            --legendary: #eab308; /* Yellow */
+            
+            /* Theme Colors */
+            --bg-main: #0b0f19;
+            --bg-card: #151c2c;
+            --bg-card-hover: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            
+            /* Status Colors */
+            --rising: #22c55e;
+            --dropping: #ef4444;
+            --stable: #eab308;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Navbar Header */
+        header {
+            background-color: rgba(15, 23, 42, 0.95);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Tier Sections */
+        .tier-section {
+            margin-bottom: 4rem;
+        }
+
+        .tier-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tier-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mythic-title { color: #60a5fa; text-shadow: 0 0 15px rgba(30, 58, 138, 0.6); }
+        .fabled-title { color: #f87171; text-shadow: 0 0 15px rgba(220, 38, 38, 0.6); }
+        .legendary-title { color: #facc15; text-shadow: 0 0 15px rgba(234, 179, 8, 0.6); }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Card Design */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background-color: var(--bg-card-hover);
+        }
+
+        /* Tier Borders */
+        .mythic-card { border-top: 4px solid var(--mythic); box-shadow: 0 -4px 20px rgba(30, 58, 138, 0.1); }
+        .mythic-card:hover { box-shadow: 0 10px 25px rgba(30, 58, 138, 0.2); }
+
+        .fabled-card { border-top: 4px solid var(--fabled); box-shadow: 0 -4px 20px rgba(220, 38, 38, 0.1); }
+        .fabled-card:hover { box-shadow: 0 10px 25px rgba(220, 38, 38, 0.2); }
+
+        .legendary-card { border-top: 4px solid var(--legendary); box-shadow: 0 -4px 20px rgba(234, 179, 8, 0.1); }
+        .legendary-card:hover { box-shadow: 0 10px 25px rgba(234, 179, 8, 0.2); }
+
+        /* Card Content */
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 140px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-weight: 800;
+        }
+
+        /* Trend Indicators */
+        .trend-rising { color: var(--rising); }
+        .trend-dropping { color: var(--dropping); }
+        .trend-stable { color: var(--stable); }
+
+        .trend-icon {
+            font-size: 1.1rem;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+
+        /* Demand Bar */
+        .demand-container {
+            margin-top: 1rem;
+        }
+        
+        .demand-bar-bg {
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .demand-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Prior Extinction Tracker</div>
+        <nav class="nav-links">
+            <a href="#">Values</a>
+            <a href="#">Calculator</a>
+            <a href="#">Discord</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <!-- MYTHIC TIER -->
+        <section class="tier-section">
+            <div class="tier-header">
+                <h2 class="tier-title mythic-title">Mythic Tier</h2>
+            </div>
+            
+            <div class="grid">
+                <!-- Item 1: King Alask -->
+                <div class="card mythic-card">
+                    <div class="card-title">King Alask</div>
+                    <div class="image-placeholder">Ski Image</div>
+                    
+                    <div class="stat-row">
+                        <span class="stat-label">Value:</span>
+                        <span class="stat-value">50k - 120k</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Trend:</span>
+                        <span class="stat-value trend-rising">
+                            <span class="trend-icon">↗</span> Rising
+                        </span>
+                    </div>
+                    
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom: 0;">
+                            <span class="stat-label">Demand:</span>
+                            <span class="stat-value">9/10</span>
+                        </div>
+                        <div class="demand-bar-bg">
+                            <div class="demand-fill" style="width: 90%; background-color: var(--rising);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: Nordlys -->
+                <div class="card mythic-card">
+                    <div class="card-title">Nordlys</div>
+                    <div class="image-placeholder">Ski Image</div>
+                    
+                    <div class="stat-row">
+                        <span class="stat-label">Value:</span>
+                        <span class="stat-value">64k - 30k</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Trend:</span>
+                        <span class="stat-value trend-dropping">
+                            <span class="trend-icon">↘</span> Dropping
+                        </span>
+                    </div>
+                    
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom: 0;">
+                            <span class="stat-label">Demand:</span>
+                            <span class="stat-value">3/10</span>
+                        </div>
+                        <div class="demand-bar-bg">
+                            <div class="demand-fill" style="width: 30%; background-color: var(--dropping);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3: Liberty -->
+                <div class="card mythic-card">
+                    <div class="card-title">Liberty</div>
+                    <div class="image-placeholder">Ski Image</div>
+                    
+                    <div class="stat-row">
+                        <span class="stat-label">Value:</span>
+                        <span class="stat-value">80k</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Trend:</span>
+                        <span class="stat-value trend-rising">
+                            <span class="trend-icon">↗</span> Rising
+                        </span>
+                    </div>
+                    
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom: 0;">
+                            <span class="stat-label">Demand:</span>
+                            <span class="stat-value">7/10</span>
+                        </div>
+                        <div class="demand-bar-bg">
+                            <div class="demand-fill" style="width: 70%; background-color: var(--stable);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FABLED TIER -->
+        <section class="tier-section">
+            <div class="tier-header">
+                <h2 class="tier-title fabled-title">Fabled Tier</h2>
+            </div>
+            <div class="grid">
+                <!-- Add Fabled items here using class="card fabled-card" -->
+                <p style="color: var(--text-muted); font-style: italic;">Items coming soon...</p>
+            </div>
+        </section>
+
+        <!-- LEGENDARY TIER -->
+        <section class="tier-section">
+            <div class="tier-header">
+                <h2 class="tier-title legendary-title">Legendary Tier</h2>
+            </div>
+            <div class="grid">
+                <!-- Add Legendary items here using class="card legendary-card" -->
+                <p style="color: var(--text-muted); font-style: italic;">Items coming soon...</p>
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>
