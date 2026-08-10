@@ -147,6 +147,16 @@
             letter-spacing: 0.5px;
         }
 
+        .card-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1.25rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         .image-placeholder {
             width: 100%;
             height: 140px;
@@ -231,7 +241,7 @@
                 <!-- Item 1: King Alask -->
                 <div class="card mythic-card">
                     <div class="card-title">King Alask</div>
-                    <div class="image-placeholder">Ski Image</div>
+                    <div class="image-placeholder">Skin Image</div>
                     
                     <div class="stat-row">
                         <span class="stat-label">Value:</span>
@@ -258,7 +268,7 @@
                 <!-- Item 2: Nordlys -->
                 <div class="card mythic-card">
                     <div class="card-title">Nordlys</div>
-                    <div class="image-placeholder">Ski Image</div>
+                    <div class="image-placeholder">Skin Image</div>
                     
                     <div class="stat-row">
                         <span class="stat-label">Value:</span>
@@ -285,7 +295,7 @@
                 <!-- Item 3: Liberty -->
                 <div class="card mythic-card">
                     <div class="card-title">Liberty</div>
-                    <div class="image-placeholder">Ski Image</div>
+                    <div class="image-placeholder">Skin Image</div>
                     
                     <div class="stat-row">
                         <span class="stat-label">Value:</span>
@@ -308,6 +318,119 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Item 4: Giga sub-species -->
+                <div class="card mythic-card">
+                    <div class="card-title">Giga sub-species</div>
+                    <img src="https://www.google.com/search?client=ms-android-samsung-ss&hs=xN5&sca_esv=64b268b11d0571a2&sxsrf=APpeQnvrgQiPLbo2xkdBVAgIn00YUZQBZA:1786357250686&udm=2&fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8c4u0nXx4bEIpwm1lnNH832b1sC3PQ-MLX4CbUrRwXd2z42WCpWKSw_8cSvCgLxPIhXWxXFJDyr3JIhhyJ3DFgDwywjdNXeV5U_hZ1qf7AjiH-RRgMVaQReDZ2keu0xdYbrLu-4xCbto2_c9xP5bfw83N9iELbr1Uu-rcLCDIyawet3KYK2vyKRA_8CNvnpHQ2TJCuMA&q=prior+extinction+king+rex&sa=X&ved=2ahUKEwjz1Pmq65WWAxUcpCcCHbWsPB0QtKgLegQIExAB#sv=CAMSVxoyKhBlLVdWUkYtV1ZaRHR4MktNMg5XVlJGLVdWWkR0eDJLTToOa1hlSFdMWE9OeVNWeE0gBCoXCgFzEhBlLVdWUkYtV1ZaRHR4MktNGAEwAUoECAEQAhgHIJzTrOsMSggQAhgBIAIoAQ" alt="Giga sub-species" class="card-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="image-placeholder" style="display: none;">Giga Image</div>
+                    
+                    <div class="stat-row">
+                        <span class="stat-label">Value:</span>
+                        <span class="stat-value">50k - 60k</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Trend:</span>
+                        <span class="stat-value trend-stable">
+                            <span class="trend-icon">→</span> Stable
+                        </span>
+                    </div>
+                    
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom: 0;">
+                            <span class="stat-label">Demand:</span>
+                            <span class="stat-value">6/10</span>
+                        </div>
+                        <div class="demand-bar-bg">
+                            <div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5: Alask sub-species -->
+                <div class="card mythic-card">
+                    <div class="card-title">Alask sub-species</div>
+                    <img src="https://www.google.com/search?client=ms-android-samsung-ss&hs=xN5&sca_esv=64b268b11d0571a2&sxsrf=APpeQnvrgQiPLbo2xkdBVAgIn00YUZQBZA:1786357250686&udm=2&fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8c4u0nXx4bEIpwm1lnNH832b1sC3PQ-MLX4CbUrRwXd2z42WCpWKSw_8cSvCgLxPIhXWxXFJDyr3JIhhyJ3DFgDwywjdNXeV5U_hZ1qf7AjiH-RRgMVaQReDZ2keu0xdYbrLu-4xCbto2_c9xP5bfw83N9iELbr1Uu-rcLCDIyawet3KYK2vyKRA_8CNvnpHQ2TJCuMA&q=prior+extinction+king+rex&sa=X&ved=2ahUKEwjz1Pmq65WWAxUcpCcCHbWsPB0QtKgLegQIExAB#sv=CAMSVxoyKhBlLWxRRVU3NXpZWmFWNWtNMg5sUUVVNzV6WVphVjVrTToOcS1hZzVkTEN4c0llQU0gBCoXCgFzEhBlLWxRRVU3NXpZWmFWNWtNGAEwAUoECAEQAhgHIOPbutwCSggQAhgBIAIoAQ" alt="Alask sub-species" class="card-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="image-placeholder" style="display: none;">Alask Image</div>
+                    
+                    <div class="stat-row">
+                        <span class="stat-label">Value:</span>
+                        <span class="stat-value">70k - 90k</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Trend:</span>
+                        <span class="stat-value trend-stable">
+                            <span class="trend-icon">→</span> Stable
+                        </span>
+                    </div>
+                    
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom: 0;">
+                            <span class="stat-label">Demand:</span>
+                            <span class="stat-value">9/10</span>
+                        </div>
+                        <div class="demand-bar-bg">
+                            <div class="demand-fill" style="width: 90%; background-color: var(--rising);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 6: Argent sub-species -->
+                <div class="card mythic-card">
+                    <div class="card-title">Argent sub-species</div>
+                    <img src="https://www.google.com/search?q=prior+extinction+argent&client=ms-android-samsung-ss&hs=yN5&sca_esv=64b268b11d0571a2&udm=2&biw=384&bih=768&sxsrf=APpeQnsmaO1X87aItxa3OKMIFblci5AsbQ%3A1786357307210&ei=O6Z5av3ADK6HkdUPk8eu0AQ&oq=prior+extinction+argent&gs_lp=EhJtb2JpbGUtZ3dzLXdpei1pbWciF3ByaW9yIGV4dGluY3Rpb24gYXJnZW50MgQQABgeMgQQABgeSPkjUK0FWMEfcAB4AJABAJgBowOgAfEdqgEJMC40LjguMS4yuAEDyAEA-AEBmAIJoAKlEsICBxAjGMkCGCfCAgYQABgFGB7CAgcQABiABBgTwgIFEAAYgASYAwCIBgGSBwkwLjMuNC4wLjKgB8AmsgcJMC4zLjQuMC4yuAelEsIHBzAuMS43LjHIBzCACAE&sclient=mobile-gws-wiz-img#sv=CAMSVxoyKhBlLWFiQUdBcW0yeWVzTzdNMg5hYkFHQXFtMnllc083TToOcHprM0Fia0JranU2QU0gBCoXCgFzEhBlLWFiQUdBcW0yeWVzTzdNGAEwAUoECAEQAhgHIP_6grcGSggQAhgBIAIoAQ" alt="Argent sub-species" class="card-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="image-placeholder" style="display: none;">Argent Image</div>
+                    
+                    <div class="stat-row">
+                        <span class="stat-label">Value:</span>
+                        <span class="stat-value">60k - 90k</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Trend:</span>
+                        <span class="stat-value trend-stable">
+                            <span class="trend-icon">→</span> Stable
+                        </span>
+                    </div>
+                    
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom: 0;">
+                            <span class="stat-label">Demand:</span>
+                            <span class="stat-value">8/10</span>
+                        </div>
+                        <div class="demand-bar-bg">
+                            <div class="demand-fill" style="width: 80%; background-color: var(--stable);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 7: Maroc sub-species -->
+                <div class="card mythic-card">
+                    <div class="card-title">Maroc sub-species</div>
+                    <img src="https://www.google.com/search?q=prior+extinction+spino+maroc&client=ms-android-samsung-ss&hs=F3Pq&sca_esv=64b268b11d0571a2&udm=2&sxsrf=APpeQnv9PnC790gMPOI0Q_jitCNI6niFQg%3A1786357253230&ei=BaZ5ar7dDdWLkdUPo5_M-Ak&biw=384&bih=768&oq=prior+extinction+spino+maroc&gs_lp=EhJtb2JpbGUtZ3dzLXdpei1pbWciHHByaW9yIGV4dGluY3Rpb24gc3Bpbm8gbWFyb2NIih1QuAVYwBxwAHgAkAEAmAGSAqAB4R2qAQYwLjEuMTa4AQPIAQD4AQGYAgigAocOwgIHECMYyQIYJ8ICBRAAGIAEwgIEEAAYHsICBxAAGIAEGBPCAgYQABgeGBPCAgYQABgFGB6YAwCIBgGSBwUwLjEuN6AHsh-yBwUwLjEuN7gHhw7CBwcwLjEuNS4yyAc1gAgB&sclient=mobile-gws-wiz-img#sv=CAMSVxoyKhBlLXBaSlZWS0xDYmdzOURNMg5wWkpWVktMQ2JnczlETToOY1Z0RFVva2wxRlJ1ZU0gBCoXCgFzEhBlLXBaSlZWS0xDYmdzOURNGAEwAUoECAEQAhgHIIPM77wCSggQAhgBIAIoAQ" alt="Maroc sub-species" class="card-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="image-placeholder" style="display: none;">Maroc Image</div>
+                    
+                    <div class="stat-row">
+                        <span class="stat-label">Value:</span>
+                        <span class="stat-value">60k - 80k</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Trend:</span>
+                        <span class="stat-value trend-stable">
+                            <span class="trend-icon">→</span> Stable
+                        </span>
+                    </div>
+                    
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom: 0;">
+                            <span class="stat-label">Demand:</span>
+                            <span class="stat-value">8/10</span>
+                        </div>
+                        <div class="demand-bar-bg">
+                            <div class="demand-fill" style="width: 80%; background-color: var(--stable);"></div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -317,7 +440,6 @@
                 <h2 class="tier-title fabled-title">Fabled Tier</h2>
             </div>
             <div class="grid">
-                <!-- Add Fabled items here using class="card fabled-card" -->
                 <p style="color: var(--text-muted); font-style: italic;">Items coming soon...</p>
             </div>
         </section>
@@ -328,7 +450,6 @@
                 <h2 class="tier-title legendary-title">Legendary Tier</h2>
             </div>
             <div class="grid">
-                <!-- Add Legendary items here using class="card legendary-card" -->
                 <p style="color: var(--text-muted); font-style: italic;">Items coming soon...</p>
             </div>
         </section>
