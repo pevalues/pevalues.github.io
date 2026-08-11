@@ -8,10 +8,10 @@
     <style>
         :root {
             /* Tier Colors */
-            --ultimate: #facc15; /* Gold */
-            --mythic: #1e3a8a; /* Dark Blue */
-            --fabled: #dc2626; /* Red */
-            --legendary: #eab308; /* Yellow */
+            --ultimate: #facc15;
+            --mythic: #1e3a8a;
+            --fabled: #dc2626;
+            --legendary: #eab308;
             
             /* Theme Colors */
             --bg-main: #0b0f19;
@@ -27,919 +27,531 @@
             --stable: #eab308;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
 
         /* Navbar Header */
         header {
-            background-color: rgba(15, 23, 42, 0.95);
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            backdrop-filter: blur(10px);
+            background-color: rgba(15, 23, 42, 0.95); padding: 1rem 1.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; backdrop-filter: blur(10px);
         }
-
-        /* Hamburger Menu */
-        .menu-btn {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 200;
-            margin-right: 1.5rem;
-        }
-
-        .menu-btn span {
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-main);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-
+        .header-left { display: flex; align-items: center; }
+        .menu-btn { display: flex; flex-direction: column; gap: 5px; cursor: pointer; z-index: 200; margin-right: 1.5rem; }
+        .menu-btn span { width: 25px; height: 3px; background-color: var(--text-main); border-radius: 3px; transition: all 0.3s ease; }
         .menu-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
         .menu-btn.active span:nth-child(2) { opacity: 0; }
         .menu-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-        .logo {
-            font-size: 1.25rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(to right, #60a5fa, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        
+        .logo { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .last-updated { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
 
         /* Side Menu */
         .side-menu {
-            position: fixed;
-            top: 0;
-            left: -280px;
-            width: 280px;
-            height: 100vh;
-            background-color: var(--bg-card);
-            z-index: 150;
-            transition: left 0.3s ease;
-            padding-top: 5rem;
-            box-shadow: 2px 0 15px rgba(0,0,0,0.5);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            position: fixed; top: 0; left: -280px; width: 280px; height: 100vh; background-color: var(--bg-card);
+            z-index: 150; transition: left 0.3s ease; padding-top: 5rem; box-shadow: 2px 0 15px rgba(0,0,0,0.5); border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
-
         .side-menu.active { left: 0; }
-
-        .side-menu a {
-            display: block;
-            padding: 1rem 2rem;
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: background 0.2s;
-        }
-
+        .side-menu a { display: block; padding: 1rem 2rem; color: var(--text-main); text-decoration: none; font-size: 1.1rem; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s; cursor: pointer; }
         .side-menu a:hover { background-color: var(--bg-card-hover); }
 
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(2px);
-            z-index: 140;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
+        .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(2px); z-index: 140; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .overlay.active { opacity: 1; visibility: visible; }
 
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Credits Modal */
+        /* Modals */
         .modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            background-color: var(--bg-card);
-            padding: 2rem;
-            border-radius: 16px;
-            z-index: 300;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-            text-align: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            width: 90%;
-            max-width: 400px;
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background-color: var(--bg-card);
+            padding: 2rem; border-radius: 16px; z-index: 300; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto;
         }
-
-        .modal.active {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal h2 { margin-bottom: 1rem; color: #a78bfa; }
-        .modal p { margin-bottom: 0.5rem; font-size: 1.1rem; font-weight: 600; }
-        .modal-close {
-            margin-top: 1.5rem;
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 800;
-            cursor: pointer;
-            width: 100%;
-        }
+        .modal.active { transform: translate(-50%, -50%) scale(1); opacity: 1; visibility: visible; }
+        .modal h2 { margin-bottom: 1rem; color: #a78bfa; text-align: center; }
+        .modal-close { margin-top: 1.5rem; background: var(--accent); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; }
+        
+        .changelog-item { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0.8rem 0; font-size: 0.95rem; }
+        .changelog-date { color: var(--accent); font-weight: 800; font-size: 0.85rem; margin-bottom: 0.2rem; }
 
         /* Main Container */
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; display: none; }
+        .container.active { display: block; animation: fadeIn 0.4s ease; }
 
-        /* Search Section */
-        .search-container { margin-bottom: 2.5rem; text-align: center; }
-        .search-box {
-            width: 100%; max-width: 500px; padding: 0.85rem 1.25rem;
-            border-radius: 50px; background-color: var(--bg-card);
-            border: 2px solid rgba(255, 255, 255, 0.1); color: #fff;
-            font-size: 1rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .search-box:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Tier Sections */
-        .tier-section { margin-bottom: 4rem; }
-        .tier-header { display: flex; align-items: center; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid rgba(255, 255, 255, 0.05); }
-        .tier-title { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        /* Filtering Section */
+        .filter-container { background-color: var(--bg-card); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.05); }
+        .search-box { width: 100%; padding: 0.85rem 1.25rem; border-radius: 8px; background-color: rgba(0,0,0,0.2); border: 2px solid rgba(255, 255, 255, 0.1); color: #fff; font-size: 1rem; outline: none; margin-bottom: 1rem; }
+        .search-box:focus { border-color: var(--accent); }
+        
+        .filter-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
+        .filter-select { padding: 0.75rem; border-radius: 8px; background-color: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; }
 
-        /* Animations */
-        @keyframes shine {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        /* Tier Titles */
+        .tier-header { display: flex; align-items: center; margin: 2rem 0 1.5rem 0; padding-bottom: 0.5rem; border-bottom: 2px solid rgba(255, 255, 255, 0.05); }
+        .tier-title { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; width: 100%; }
+        
+        @keyframes shine { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .ultimate-title { background: linear-gradient(90deg, #facc15, #fffbeb, #f59e0b, #facc15); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
+        .mythic-title { color: #60a5fa; }
+        .legendary-title { color: #eab308; }
 
-        @keyframes pulse-gold {
-            0% { transform: scale(1); box-shadow: 0 0 10px rgba(250, 204, 21, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(250, 204, 21, 0.8); }
-            100% { transform: scale(1); box-shadow: 0 0 10px rgba(250, 204, 21, 0.4); }
-        }
-
-        .ultimate-title {
-            background: linear-gradient(90deg, #facc15, #fffbeb, #f59e0b, #facc15);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 3s linear infinite;
-            text-shadow: 0 0 20px rgba(250, 204, 21, 0.5);
-        }
-
-        .mythic-title { color: #60a5fa; text-shadow: 0 0 15px rgba(30, 58, 138, 0.6); }
-        .legendary-title { color: #eab308; text-shadow: 0 0 15px rgba(234, 179, 8, 0.6); }
-
-        /* Grid Layout */
+        /* Grid & Cards */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
-
-        /* Card Design */
         .card { background-color: var(--bg-card); border-radius: 12px; padding: 1.25rem; position: relative; transition: transform 0.2s ease; border: 1px solid rgba(255, 255, 255, 0.05); }
         .card:hover { transform: translateY(-4px); background-color: var(--bg-card-hover); }
+        .ultimate-card { border-top: 4px solid var(--ultimate); }
+        .mythic-card { border-top: 4px solid var(--mythic); }
+        .legendary-card { border-top: 4px solid var(--legendary); }
 
-        .ultimate-card { border-top: 4px solid var(--ultimate); box-shadow: 0 -4px 20px rgba(250, 204, 21, 0.15); }
-        .mythic-card { border-top: 4px solid var(--mythic); box-shadow: 0 -4px 20px rgba(30, 58, 138, 0.1); }
-        .legendary-card { border-top: 4px solid var(--legendary); box-shadow: 0 -4px 20px rgba(234, 179, 8, 0.1); }
+        .bubble { display: inline-block; font-size: 0.65rem; font-weight: 800; padding: 3px 8px; border-radius: 12px; margin-left: 8px; vertical-align: middle; }
+        .bubble-gold { background: linear-gradient(45deg, #f59e0b, #facc15); color: #000; box-shadow: 0 0 10px rgba(250, 204, 21, 0.4); }
+        .bubble-gray { background: #334155; color: #fff; }
 
-        /* Bubbles */
-        .bubble-gold {
-            display: inline-block;
-            background: linear-gradient(45deg, #f59e0b, #facc15);
-            color: #000;
-            font-size: 0.65rem;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 12px;
-            margin-left: 8px;
-            vertical-align: middle;
-            animation: pulse-gold 2s infinite;
-        }
-
-        /* Text Gold */
-        .text-gold { color: #facc15 !important; text-shadow: 0 0 10px rgba(250, 204, 21, 0.6); font-weight: 800; }
-
-        /* Card Content */
         .card-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.85rem; text-align: center; }
-        .image-placeholder { width: 100%; height: 120px; background-color: rgba(0, 0, 0, 0.3); border-radius: 8px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; border: 1px dashed rgba(255, 255, 255, 0.1); }
+        .text-gold { color: #facc15 !important; font-weight: 800; }
+        
         .stat-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; font-size: 0.9rem; }
         .stat-label { color: var(--text-muted); font-weight: 600; }
         .stat-value { font-weight: 800; text-align: right; }
-        .value-soon { font-style: italic; color: var(--text-muted); }
-
-        /* Trend Indicators */
+        
         .trend-rising { color: var(--rising); }
         .trend-dropping { color: var(--dropping); }
         .trend-stable { color: var(--stable); }
-        .trend-icon { font-size: 1.1rem; margin-right: 4px; vertical-align: middle; }
-
-        /* Demand Bar */
-        .demand-container { margin-top: 0.85rem; }
+        
         .demand-bar-bg { height: 6px; background-color: rgba(255, 255, 255, 0.1); border-radius: 3px; margin-top: 0.4rem; overflow: hidden; }
         .demand-fill { height: 100%; border-radius: 3px; }
 
-        /* Redesigned Calculator Section */
-        .calculator-section { 
-            background-color: var(--bg-card); border-radius: 16px; 
-            padding: 2.5rem 2rem; margin-top: 4rem; 
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
-        }
-        .calc-title { 
-            text-align: center; font-size: 1.75rem; font-weight: 800; margin-bottom: 2rem; 
-            background: linear-gradient(to right, #60a5fa, #a78bfa); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-        }
-        .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        /* Calculator Section */
+        .calculator-section { background-color: var(--bg-card); border-radius: 16px; padding: 2rem; margin-top: 3rem; border: 1px solid rgba(255, 255, 255, 0.08); }
+        .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
         .calc-box { background-color: rgba(0, 0, 0, 0.2); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .calc-box h3 { margin-bottom: 1.5rem; font-size: 1.25rem; text-align: center; font-weight: 800; }
-        .calc-select-group { margin-bottom: 1rem; }
+        .calc-box h3 { margin-bottom: 1rem; text-align: center; }
+        .slot-container { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem; }
         
-        /* New Rounded Search-Style Selects */
-        .calc-select { 
-            width: 100%; padding: 0.85rem 1.25rem; border-radius: 50px; 
-            background-color: var(--bg-card); color: #fff; border: 2px solid rgba(255, 255, 255, 0.1); 
-            outline: none; font-size: 1rem; cursor: pointer; appearance: none;
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
-            background-repeat: no-repeat; background-position: right 1.25rem top 50%; background-size: 0.65rem auto; transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .calc-select:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
-        .calc-result { margin-top: 2rem; text-align: center; padding: 1.5rem; background-color: var(--bg-card-hover); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .calc-select { width: 100%; padding: 0.75rem; border-radius: 8px; background-color: var(--bg-card); color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); outline: none; }
+        .btn-add { background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); color: var(--text-muted); width: 100%; padding: 0.75rem; border-radius: 8px; cursor: pointer; transition: 0.2s; font-weight: 600; }
+        .btn-add:hover { background: rgba(255,255,255,0.1); color: white; }
+        
+        .currency-input { width: 100%; padding: 0.75rem; border-radius: 8px; background-color: var(--bg-card); color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); outline: none; margin-top: 1rem; }
+        
+        .calc-result { margin-top: 2rem; text-align: center; padding: 1.5rem; background-color: var(--bg-card-hover); border-radius: 16px; }
         .calc-status { font-size: 1.75rem; font-weight: 800; margin-top: 0.5rem; }
         .status-win { color: var(--rising); }
         .status-fair { color: var(--stable); }
         .status-loss { color: var(--dropping); }
+
+        /* Trading Board Section */
+        .post-form { background-color: var(--bg-card); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-muted); }
+        .form-input { width: 100%; padding: 0.85rem; border-radius: 8px; background-color: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; }
+        .btn-submit { background-color: var(--accent); color: white; border: none; padding: 0.85rem 2rem; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 1rem; width: 100%; transition: 0.2s; }
+        .btn-submit:hover { background-color: #2563eb; }
+
+        .trade-feed { display: flex; flex-direction: column; gap: 1rem; }
+        .trade-post { background-color: var(--bg-card); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--accent); }
+        .post-header { display: flex; justify-content: space-between; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; }
+        .discord-user { font-weight: 800; color: #a78bfa; display: flex; align-items: center; gap: 5px; }
+        .post-time { color: var(--text-muted); font-size: 0.85rem; }
+        .trade-details { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; }
+        .trade-side h4 { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .trade-items { font-weight: 600; }
+        .trade-icon { font-size: 1.5rem; color: var(--text-muted); }
+
     </style>
 </head>
 <body>
 
     <!-- Header & Menu -->
     <header>
-        <div class="menu-btn" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
+        <div class="header-left">
+            <div class="menu-btn" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="logo">PE Tracker</div>
         </div>
-        <div class="logo">Prior Extinction Tracker</div>
+        <div class="last-updated">Updated: Oct 24</div>
     </header>
 
     <div class="side-menu" id="sideMenu">
-        <a href="#values" onclick="toggleMenu()">Values</a>
-        <a href="#calculator" onclick="toggleMenu()">Calculator</a>
-        <a href="#" onclick="openCredits(); toggleMenu(); return false;">Credits</a>
+        <a onclick="switchView('view-tracker')">📊 Values & Calculator</a>
+        <a onclick="switchView('view-trading')">🤝 Trading Board</a>
+        <a onclick="openModal('changelogModal')">📜 Recent Changes</a>
+        <a onclick="openModal('creditsModal')">💡 Credits</a>
     </div>
     
     <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
-    <!-- Credits Modal -->
+    <!-- Modals -->
     <div class="modal" id="creditsModal">
         <h2>Website Credits</h2>
-        <p>Credits for making the website : <span style="color: #60a5fa;">jex</span></p>
-        <p>Valuelist team (for now) : <span style="color: #f87171;">shade</span></p>
+        <p style="text-align:center;">Built & Designed by <span style="color: #60a5fa; font-weight:800;">jex</span></p>
+        <p style="text-align:center;">Valuelist Team: <span style="color: #f87171; font-weight:800;">shade</span></p>
         <button class="modal-close" onclick="closeAll()">Close</button>
     </div>
 
-    <!-- Main Content -->
-    <div class="container" id="values">
+    <div class="modal" id="changelogModal">
+        <h2>Recent Value Changes</h2>
+        <div class="changelog-item">
+            <div class="changelog-date">Update v2.1</div>
+            Added Exists counts for Felsic (75), Neptune (75), Thunderheart (40), and Magmaheart (26). Thunderheart value updated to 1M.
+        </div>
+        <div class="changelog-item">
+            <div class="changelog-date">Update v2.0</div>
+            Added dynamic trading board, advanced filters, and dynamic calculator slots.
+        </div>
+        <button class="modal-close" onclick="closeAll()">Close</button>
+    </div>
+
+    <!-- VIEW 1: TRACKER & CALCULATOR -->
+    <div class="container active" id="view-tracker">
         
-        <div class="search-container">
-            <input type="text" id="searchInput" class="search-box" placeholder="Search skins..." onkeyup="filterSkins()">
+        <!-- Filters -->
+        <div class="filter-container">
+            <input type="text" id="searchInput" class="search-box" placeholder="Search for skins..." oninput="renderGrid()">
+            <div class="filter-controls">
+                <select id="tierFilter" class="filter-select" onchange="renderGrid()">
+                    <option value="all">All Tiers</option>
+                    <option value="ultimate">Ultimate</option>
+                    <option value="mythic">Mythic</option>
+                    <option value="legendary">Legendary</option>
+                </select>
+                <select id="trendFilter" class="filter-select" onchange="renderGrid()">
+                    <option value="all">All Trends</option>
+                    <option value="rising">Rising ↗</option>
+                    <option value="stable">Stable →</option>
+                    <option value="dropping">Dropping ↘</option>
+                </select>
+                <select id="sortFilter" class="filter-select" onchange="renderGrid()">
+                    <option value="name">Sort: A-Z</option>
+                    <option value="value-desc">Value: High to Low</option>
+                    <option value="value-asc">Value: Low to High</option>
+                    <option value="demand">Demand: Highest First</option>
+                </select>
+            </div>
         </div>
 
-        <!-- ULTIMATE TIER (Alphabetized) -->
-        <section class="tier-section">
-            <div class="tier-header">
-                <h2 class="tier-title ultimate-title">Ultimate Tier</h2>
-            </div>
-            
-            <div class="grid" id="ultimateGrid">
-                
-                <div class="card ultimate-card" data-name="classic sauroposidon" data-value="0">
-                    <div class="card-title">Classic Sauroposidon <span class="bubble-gold">11 EXISTS</span></div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon text-gold">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value text-gold">Owner Choice</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value text-gold">10/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 100%; background-color: var(--ultimate);"></div></div>
-                    </div>
-                </div>
+        <div id="skins-container">
+            <!-- Rendered via JS -->
+        </div>
 
-                <div class="card ultimate-card" data-name="felsic" data-value="400">
-                    <div class="card-title">Felsic</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon text-gold">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value text-gold">350k - 450k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value text-gold">9/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 90%; background-color: var(--ultimate);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card ultimate-card" data-name="magma heart" data-value="1000">
-                    <div class="card-title">Magma Heart</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon text-gold">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value text-gold">1M</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value text-gold">10/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 100%; background-color: var(--ultimate);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card ultimate-card" data-name="neptune" data-value="700">
-                    <div class="card-title">Neptune</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon text-gold">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value text-gold">600k - 800k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value text-gold">10/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 100%; background-color: var(--ultimate);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card ultimate-card" data-name="thunderheart" data-value="1000">
-                    <div class="card-title">Thunderheart <span class="bubble-gold">50-100 EXISTS</span></div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon text-gold">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value text-gold">1M</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value text-gold">10/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 100%; background-color: var(--ultimate);"></div></div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- MYTHIC TIER (Alphabetized) -->
-        <section class="tier-section">
-            <div class="tier-header">
-                <h2 class="tier-title mythic-title">Mythic Tier</h2>
-            </div>
-            
-            <div class="grid" id="mythicGrid">
-
-                <div class="card mythic-card" data-name="agate (maro spino)" data-value="40">
-                    <div class="card-title">Agate (Maro Spino)</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">35k - 45k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-                
-                <div class="card mythic-card" data-name="alask sub-species" data-value="80">
-                    <div class="card-title">Alask sub-species</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">70k - 90k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">9/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 90%; background-color: var(--rising);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="argent sub-species" data-value="75">
-                    <div class="card-title">Argent sub-species</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">60k - 90k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="charon spinosaurus" data-value="90">
-                    <div class="card-title">Charon Spinosaurus</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">80k - 100k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--rising);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="choco (deinos)" data-value="62.5">
-                    <div class="card-title">Choco (DeinoS)</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">50k - 75k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">7.5/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 75%; background-color: var(--rising);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="fire agate" data-value="31">
-                    <div class="card-title">Fire Agate</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">23k - 40k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">7/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 70%; background-color: var(--rising);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="geo sail spino" data-value="65">
-                    <div class="card-title">Geo sail Spino</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">60k - 70k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="giga sub-species" data-value="55">
-                    <div class="card-title">Giga sub-species</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">50k - 60k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="king alask" data-value="85">
-                    <div class="card-title">King Alask</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">50k - 120k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">9/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 90%; background-color: var(--rising);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="kyanite (deinos)" data-value="50">
-                    <div class="card-title">Kyanite (DeinoS)</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">40k - 60k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">7/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 70%; background-color: var(--rising);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="liberty" data-value="80">
-                    <div class="card-title">Liberty</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">80k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">7/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 70%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="maroc sub-species" data-value="70">
-                    <div class="card-title">Maroc sub-species</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">60k - 80k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="multi eyed" data-value="275">
-                    <div class="card-title">Multi Eyed</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">250k - 300k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--rising);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="nordlys" data-value="47">
-                    <div class="card-title">Nordlys</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">30k - 64k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-dropping"><span class="trend-icon">↘</span> Dropping</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">3/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 30%; background-color: var(--dropping);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="sonora" data-value="65">
-                    <div class="card-title">Sonora</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">60k - 70k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="split jaw" data-value="300">
-                    <div class="card-title">Split jaw</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">250k - 350k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">9/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 90%; background-color: var(--rising);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="surtr (sauro)" data-value="155">
-                    <div class="card-title">Surtr (Sauro)</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">140k - 170k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">7/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 70%; background-color: var(--rising);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="tealback" data-value="95">
-                    <div class="card-title">Tealback</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">80k - 110k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Sl. Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">7.5/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 75%; background-color: var(--rising);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="tectonic (sauro)" data-value="160">
-                    <div class="card-title">Tectonic (Sauro)</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">140k - 180k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">7.5/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 75%; background-color: var(--rising);"></div></div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- LEGENDARY TIER (Alphabetized) -->
-        <section class="tier-section">
-            <div class="tier-header">
-                <h2 class="tier-title legendary-title">Legendary Tier</h2>
-            </div>
-            
-            <div class="grid" id="legendaryGrid">
-
-                <div class="card legendary-card" data-name="copper" data-value="57">
-                    <div class="card-title">Copper</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">57k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">5.5/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 55%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card legendary-card" data-name="garden" data-value="2.5">
-                    <div class="card-title">Garden</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">2.5k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">2.5/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 25%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card legendary-card" data-name="grisnir (maroccanus)" data-value="12.5">
-                    <div class="card-title">Grisnir (Maroccanus)</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">10k - 15k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card legendary-card" data-name="mareca (deinocheirus)" data-value="12.5">
-                    <div class="card-title">Mareca (Deinocheirus)</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">10k - 15k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card legendary-card" data-name="mjolnir (ankylosaurus)" data-value="7.5">
-                    <div class="card-title">Mjolnir (Ankylosaurus)</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">5k - 10k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">4.5/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 45%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card legendary-card" data-name="salmon (amphiceratops)" data-value="53">
-                    <div class="card-title">Salmon (Amphi...)</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">46k - 60k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">5.5/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 55%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card legendary-card" data-name="sardonyx (dynamo)" data-value="30">
-                    <div class="card-title">Sardonyx (Dynamo)</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">25k - 35k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-dropping"><span class="trend-icon">↘</span> Dropping</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 60%; background-color: var(--dropping);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card legendary-card" data-name="sleipnir (edmontosaur)" data-value="29.5">
-                    <div class="card-title">Sleipnir (Edmontosaur)</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">19k - 40k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6.5/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 65%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card legendary-card" data-name="tombstone" data-value="10">
-                    <div class="card-title">Tombstone</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">10k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">4/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 40%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card legendary-card" data-name="vernal (quetz)" data-value="30">
-                    <div class="card-title">Vernal (Quetz)</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
-                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">25k - 35k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">5.5/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 55%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- REDESIGNED TRADE CALCULATOR -->
-        <section class="calculator-section" id="calculator">
-            <h2 class="calc-title">Trade Calculator</h2>
+        <!-- Calculator -->
+        <section class="calculator-section">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #a78bfa;">Trade Calculator</h2>
             <div class="calc-grid">
-                
                 <div class="calc-box">
                     <h3 style="color: #60a5fa;">Your Offer</h3>
-                    <div class="calc-select-group"><select class="calc-select offer-item" onchange="calculateTrade()"></select></div>
-                    <div class="calc-select-group"><select class="calc-select offer-item" onchange="calculateTrade()"></select></div>
-                    <div class="calc-select-group"><select class="calc-select offer-item" onchange="calculateTrade()"></select></div>
-                    <div style="text-align: right; margin-top: 1.5rem; font-size: 1.1rem; font-weight: 800;">
-                        Total Value: <span id="yourTotal">0</span>k
-                    </div>
+                    <div id="offer-slots" class="slot-container"></div>
+                    <button class="btn-add" onclick="addSlot('offer')">+ Add Item</button>
+                    <input type="number" id="offer-currency" class="currency-input" placeholder="Add Currency (k)" oninput="calculateTrade()">
+                    <div style="text-align: right; margin-top: 1rem; font-weight: 800;">Total: <span id="yourTotal">0</span>k</div>
                 </div>
 
                 <div class="calc-box">
                     <h3 style="color: #f87171;">Their Offer</h3>
-                    <div class="calc-select-group"><select class="calc-select Request-item" onchange="calculateTrade()"></select></div>
-                    <div class="calc-select-group"><select class="calc-select Request-item" onchange="calculateTrade()"></select></div>
-                    <div class="calc-select-group"><select class="calc-select Request-item" onchange="calculateTrade()"></select></div>
-                    <div style="text-align: right; margin-top: 1.5rem; font-size: 1.1rem; font-weight: 800;">
-                        Total Value: <span id="theirTotal">0</span>k
-                    </div>
+                    <div id="request-slots" class="slot-container"></div>
+                    <button class="btn-add" onclick="addSlot('request')">+ Add Item</button>
+                    <input type="number" id="request-currency" class="currency-input" placeholder="Add Currency (k)" oninput="calculateTrade()">
+                    <div style="text-align: right; margin-top: 1rem; font-weight: 800;">Total: <span id="theirTotal">0</span>k</div>
                 </div>
-
             </div>
 
             <div class="calc-result">
-                <div style="font-size: 1.1rem; font-weight: 600; color: var(--text-muted);">Trade Win/Loss Status</div>
-                <div class="calc-status" id="calcStatus">FAIR TRADE</div>
+                <div style="font-size: 1rem; color: var(--text-muted); font-weight: 600;">Trade Verdict</div>
+                <div class="calc-status" id="calcStatus">ADD ITEMS TO CALCULATE</div>
             </div>
         </section>
+    </div>
 
+    <!-- VIEW 2: TRADING BOARD -->
+    <div class="container" id="view-trading">
+        <h2 style="margin-bottom: 1.5rem; color: #60a5fa;">Live Trading Board</h2>
+        
+        <div class="post-form">
+            <h3 style="margin-bottom: 1rem;">Create a Trade Post</h3>
+            <div class="form-group">
+                <label>Discord Username</label>
+                <input type="text" id="post-discord" class="form-input" placeholder="e.g. user#1234 or @username">
+            </div>
+            <div class="form-group">
+                <label>I am offering:</label>
+                <input type="text" id="post-offer" class="form-input" placeholder="e.g. Felsic + 50k">
+            </div>
+            <div class="form-group">
+                <label>I am looking for:</label>
+                <input type="text" id="post-request" class="form-input" placeholder="e.g. Neptune">
+            </div>
+            <button class="btn-submit" onclick="submitPost()">Post Trade</button>
+        </div>
+
+        <div class="trade-feed" id="trade-feed">
+            <!-- Rendered via JS -->
+        </div>
     </div>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Menu & Modal Logic
-        const menuBtn = document.querySelector('.menu-btn');
-        const sideMenu = document.getElementById('sideMenu');
-        const overlay = document.getElementById('overlay');
-        const creditsModal = document.getElementById('creditsModal');
-
-        function toggleMenu() {
-            menuBtn.classList.toggle('active');
-            sideMenu.classList.toggle('active');
+        // Data Store
+        const skinsData = [
+            // Ultimates
+            { name: "Classic Sauroposidon", tier: "ultimate", value: 0, strValue: "Owner Choice", trend: "stable", demand: 10, exists: 11 },
+            { name: "Felsic", tier: "ultimate", value: 400, strValue: "350k - 450k", trend: "stable", demand: 9, exists: 75 },
+            { name: "Magma Heart", tier: "ultimate", value: 1000, strValue: "1M", trend: "stable", demand: 10, exists: 26 },
+            { name: "Neptune", tier: "ultimate", value: 700, strValue: "600k - 800k", trend: "rising", demand: 10, exists: 75 },
+            { name: "Thunderheart", tier: "ultimate", value: 1000, strValue: "1M", trend: "stable", demand: 10, exists: 40 },
             
-            if (sideMenu.classList.contains('active')) {
-                overlay.classList.add('active');
-                creditsModal.classList.remove('active');
-            } else {
-                overlay.classList.remove('active');
-            }
+            // Mythics
+            { name: "Agate (Maro Spino)", tier: "mythic", value: 40, strValue: "35k - 45k", trend: "stable", demand: 6 },
+            { name: "Alask sub-species", tier: "mythic", value: 80, strValue: "70k - 90k", trend: "stable", demand: 9 },
+            { name: "Argent sub-species", tier: "mythic", value: 75, strValue: "60k - 90k", trend: "stable", demand: 8 },
+            { name: "Charon Spinosaurus", tier: "mythic", value: 90, strValue: "80k - 100k", trend: "rising", demand: 8 },
+            { name: "Choco (DeinoS)", tier: "mythic", value: 62.5, strValue: "50k - 75k", trend: "rising", demand: 7.5 },
+            { name: "Fire Agate", tier: "mythic", value: 31.5, strValue: "23k - 40k", trend: "rising", demand: 7 },
+            { name: "Geo sail Spino", tier: "mythic", value: 65, strValue: "60k - 70k", trend: "stable", demand: 6 },
+            { name: "Giga sub-species", tier: "mythic", value: 55, strValue: "50k - 60k", trend: "stable", demand: 6 },
+            { name: "King Alask", tier: "mythic", value: 85, strValue: "50k - 120k", trend: "rising", demand: 9 },
+            { name: "Kyanite (DeinoS)", tier: "mythic", value: 50, strValue: "40k - 60k", trend: "rising", demand: 7 },
+            { name: "Liberty", tier: "mythic", value: 80, strValue: "80k", trend: "rising", demand: 7 },
+            { name: "Maroc sub-species", tier: "mythic", value: 70, strValue: "60k - 80k", trend: "stable", demand: 8 },
+            { name: "Multi Eyed", tier: "mythic", value: 275, strValue: "250k - 300k", trend: "rising", demand: 8 },
+            { name: "Nordlys", tier: "mythic", value: 47, strValue: "30k - 64k", trend: "dropping", demand: 3 },
+            { name: "Sonora", tier: "mythic", value: 65, strValue: "60k - 70k", trend: "stable", demand: 6 },
+            { name: "Split jaw", tier: "mythic", value: 300, strValue: "250k - 350k", trend: "rising", demand: 9 },
+            { name: "Surtr (Sauro)", tier: "mythic", value: 155, strValue: "140k - 170k", trend: "rising", demand: 7 },
+            { name: "Tealback", tier: "mythic", value: 95, strValue: "80k - 110k", trend: "rising", demand: 7.5 },
+            { name: "Tectonic (Sauro)", tier: "mythic", value: 160, strValue: "140k - 180k", trend: "rising", demand: 7.5 },
+
+            // Legendaries
+            { name: "Copper", tier: "legendary", value: 57, strValue: "57k", trend: "stable", demand: 5.5 },
+            { name: "Garden", tier: "legendary", value: 2.5, strValue: "2.5k", trend: "stable", demand: 2.5 },
+            { name: "Grisnir (Maroccanus)", tier: "legendary", value: 12.5, strValue: "10k - 15k", trend: "stable", demand: 6 },
+            { name: "Mareca (Deinocheirus)", tier: "legendary", value: 12.5, strValue: "10k - 15k", trend: "stable", demand: 6 },
+            { name: "Mjolnir (Ankylosaurus)", tier: "legendary", value: 7.5, strValue: "5k - 10k", trend: "stable", demand: 4.5 },
+            { name: "Salmon (Amphiceratops)", tier: "legendary", value: 53, strValue: "46k - 60k", trend: "stable", demand: 5.5 },
+            { name: "Sardonyx (Dynamo)", tier: "legendary", value: 30, strValue: "25k - 35k", trend: "dropping", demand: 6 },
+            { name: "Sleipnir (Edmontosaur)", tier: "legendary", value: 29.5, strValue: "19k - 40k", trend: "stable", demand: 6.5 },
+            { name: "Tombstone", tier: "legendary", value: 10, strValue: "10k", trend: "stable", demand: 4 },
+            { name: "Vernal (Quetz)", tier: "legendary", value: 30, strValue: "25k - 35k", trend: "stable", demand: 5.5 }
+        ];
+
+        const trendMap = {
+            "rising": { icon: "↗", text: "Rising", class: "trend-rising" },
+            "stable": { icon: "→", text: "Stable", class: "trend-stable" },
+            "dropping": { icon: "↘", text: "Dropping", class: "trend-dropping" }
+        };
+
+        const tierColors = {
+            "ultimate": { name: "Ultimate", class: "ultimate", hex: "var(--ultimate)" },
+            "mythic": { name: "Mythic", class: "mythic", hex: "var(--mythic)" },
+            "legendary": { name: "Legendary", class: "legendary", hex: "var(--legendary)" }
+        };
+
+        // UI Toggles
+        function toggleMenu() {
+            document.querySelector('.menu-btn').classList.toggle('active');
+            document.getElementById('sideMenu').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
         }
 
-        function openCredits() {
-            overlay.classList.add('active');
-            creditsModal.classList.add('active');
+        function openModal(id) {
+            closeAll();
+            document.getElementById('overlay').classList.add('active');
+            document.getElementById(id).classList.add('active');
         }
 
         function closeAll() {
-            menuBtn.classList.remove('active');
-            sideMenu.classList.remove('active');
-            overlay.classList.remove('active');
-            creditsModal.classList.remove('active');
+            document.querySelector('.menu-btn').classList.remove('active');
+            document.getElementById('sideMenu').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+            document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
         }
 
-        // Search Filter
-        function filterSkins() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                const name = card.getAttribute('data-name');
-                if (name && name.includes(query)) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
+        function switchView(viewId) {
+            closeAll();
+            document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            if(viewId === 'view-trading') renderFeed();
+        }
+
+        // Rendering Engine
+        function renderGrid() {
+            const container = document.getElementById('skins-container');
+            container.innerHTML = '';
+
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const tierF = document.getElementById('tierFilter').value;
+            const trendF = document.getElementById('trendFilter').value;
+            const sortF = document.getElementById('sortFilter').value;
+
+            // Filter
+            let filtered = skinsData.filter(s => {
+                if(searchQuery && !s.name.toLowerCase().includes(searchQuery)) return false;
+                if(tierF !== 'all' && s.tier !== tierF) return false;
+                if(trendF !== 'all' && s.trend !== trendF) return false;
+                return true;
             });
-        }
 
-        // Trade Calculator Logic (Alphabetized meticulously for dropdown!)
-        let skinsList = [
-            { name: "Agate (Maro Spino) (40k)", value: 40 },
-            { name: "Alask sub-species (80k)", value: 80 },
-            { name: "Argent sub-species (75k)", value: 75 },
-            { name: "Charon Spinosaurus (90k)", value: 90 },
-            { name: "Choco (DeinoS) (62.5k)", value: 62.5 },
-            { name: "Classic Sauroposidon (Owner Choice)", value: 0 },
-            { name: "Copper (57k)", value: 57 },
-            { name: "Felsic (400k)", value: 400 },
-            { name: "Fire Agate (31.5k)", value: 31.5 },
-            { name: "Garden (2.5k)", value: 2.5 },
-            { name: "Geo sail Spino (65k)", value: 65 },
-            { name: "Giga sub-species (55k)", value: 55 },
-            { name: "Grisnir (Maroccanus) (12.5k)", value: 12.5 },
-            { name: "King Alask (85k)", value: 85 },
-            { name: "Kyanite (DeinoS) (50k)", value: 50 },
-            { name: "Liberty (80k)", value: 80 },
-            { name: "Magma Heart (1M)", value: 1000 },
-            { name: "Mareca (Deinocheirus) (12.5k)", value: 12.5 },
-            { name: "Maroc sub-species (70k)", value: 70 },
-            { name: "Mjolnir (Ankylosaurus) (7.5k)", value: 7.5 },
-            { name: "Multi Eyed (275k)", value: 275 },
-            { name: "Neptune (700k)", value: 700 },
-            { name: "Nordlys (47k)", value: 47 },
-            { name: "Salmon (Amphiceratops) (53k)", value: 53 },
-            { name: "Sardonyx (Dynamo) (30k)", value: 30 },
-            { name: "Sleipnir (Edmontosaur) (29.5k)", value: 29.5 },
-            { name: "Sonora (65k)", value: 65 },
-            { name: "Split jaw (300k)", value: 300 },
-            { name: "Surtr (Sauro) (155k)", value: 155 },
-            { name: "Tealback (95k)", value: 95 },
-            { name: "Tectonic (Sauro) (160k)", value: 160 },
-            { name: "Thunderheart (1M)", value: 1000 },
-            { name: "Tombstone (10k)", value: 10 },
-            { name: "Vernal (Quetz) (30k)", value: 30 }
-        ];
+            // Sort
+            filtered.sort((a, b) => {
+                if(sortF === 'name') return a.name.localeCompare(b.name);
+                if(sortF === 'value-desc') return b.value - a.value;
+                if(sortF === 'value-asc') return a.value - b.value;
+                if(sortF === 'demand') return b.demand - a.demand;
+                return 0;
+            });
 
-        // Ensure "Select an item..." is always perfectly at the top
-        skinsList.unshift({ name: "Select an item...", value: 0 });
-
-        function populateDropdowns() {
-            const selects = document.querySelectorAll('.calc-select');
-            selects.forEach(select => {
-                select.innerHTML = '';
-                skinsList.forEach(skin => {
-                    const option = document.createElement('option');
-                    option.value = skin.value;
-                    option.textContent = skin.name;
-                    select.appendChild(option);
+            // Group by tier if not sorting by pure values across tiers
+            if (sortF === 'name' && tierF === 'all') {
+                ['ultimate', 'mythic', 'legendary'].forEach(t => {
+                    const tierSkins = filtered.filter(s => s.tier === t);
+                    if(tierSkins.length > 0) appendTierSection(container, t, tierSkins);
                 });
+            } else {
+                appendTierSection(container, "Results", filtered, true);
+            }
+        }
+
+        function appendTierSection(container, tierKey, skins, flat = false) {
+            if(skins.length === 0) return;
+            
+            const section = document.createElement('div');
+            section.className = 'tier-section';
+            
+            let titleClass = flat ? "" : `${tierKey}-title`;
+            let titleText = flat ? "Search Results" : `${tierKey} Tier`;
+
+            section.innerHTML = `
+                <div class="tier-header"><h2 class="tier-title ${titleClass}">${titleText}</h2></div>
+                <div class="grid">
+                    ${skins.map(s => `
+                        <div class="card ${s.tier}-card">
+                            <div class="card-title">
+                                ${s.name} 
+                                ${s.exists ? `<span class="bubble bubble-gold">${s.exists} EXISTS</span>` : ''}
+                            </div>
+                            <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value ${s.tier==='ultimate'?'text-gold':''}">${s.strValue}</span></div>
+                            <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value ${trendMap[s.trend].class}">
+                                ${trendMap[s.trend].icon} ${trendMap[s.trend].text}
+                            </span></div>
+                            <div style="margin-top:0.85rem;">
+                                <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">${s.demand}/10</span></div>
+                                <div class="demand-bar-bg"><div class="demand-fill" style="width: ${s.demand*10}%; background-color: ${tierColors[s.tier].hex};"></div></div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(section);
+        }
+
+        // Calculator Logic
+        function getSkinOptions() {
+            let opts = `<option value="0">Select Skin...</option>`;
+            skinsData.sort((a,b) => a.name.localeCompare(b.name)).forEach(s => {
+                opts += `<option value="${s.value}">${s.name} (${s.value>0 ? s.value+'k' : '?'})</option>`;
             });
+            return opts;
+        }
+
+        function addSlot(side) {
+            const container = document.getElementById(`${side}-slots`);
+            const select = document.createElement('select');
+            select.className = 'calc-select';
+            select.innerHTML = getSkinOptions();
+            select.onchange = calculateTrade;
+            container.appendChild(select);
         }
 
         function calculateTrade() {
-            const offerItems = document.querySelectorAll('.offer-item');
-            const requestItems = document.querySelectorAll('.Request-item');
-            let yourTotal = 0; let theirTotal = 0;
+            let offerTotal = Number(document.getElementById('offer-currency').value) || 0;
+            let requestTotal = Number(document.getElementById('request-currency').value) || 0;
 
-            offerItems.forEach(item => yourTotal += Number(item.value));
-            requestItems.forEach(item => theirTotal += Number(item.value));
+            document.querySelectorAll('#offer-slots .calc-select').forEach(s => offerTotal += Number(s.value));
+            document.querySelectorAll('#request-slots .calc-select').forEach(s => requestTotal += Number(s.value));
 
-            document.getElementById('yourTotal').innerText = yourTotal;
-            document.getElementById('theirTotal').innerText = theirTotal;
+            document.getElementById('yourTotal').innerText = offerTotal.toFixed(1);
+            document.getElementById('theirTotal').innerText = requestTotal.toFixed(1);
 
             const statusEl = document.getElementById('calcStatus');
-            const diff = theirTotal - yourTotal;
+            const diff = requestTotal - offerTotal;
 
-            if (yourTotal === 0 && theirTotal === 0) {
+            if (offerTotal === 0 && requestTotal === 0) {
                 statusEl.innerText = "ADD ITEMS TO CALCULATE";
                 statusEl.className = "calc-status";
             } else if (diff > 20) {
-                statusEl.innerText = `BIG WIN (+${diff}k)`;
+                statusEl.innerText = `BIG WIN (+${diff.toFixed(1)}k)`;
                 statusEl.className = "calc-status status-win";
             } else if (diff >= 0) {
-                statusEl.innerText = `FAIR / SLIGHT WIN (+${diff}k)`;
+                statusEl.innerText = `FAIR / SLIGHT WIN (+${diff.toFixed(1)}k)`;
                 statusEl.className = "calc-status status-win";
             } else if (diff >= -20) {
-                statusEl.innerText = `FAIR / SLIGHT LOSS (${diff}k)`;
+                statusEl.innerText = `FAIR / SLIGHT LOSS (${diff.toFixed(1)}k)`;
                 statusEl.className = "calc-status status-fair";
             } else {
-                statusEl.innerText = `LOSE (${diff}k)`;
+                statusEl.innerText = `LOSE (${diff.toFixed(1)}k)`;
                 statusEl.className = "calc-status status-loss";
             }
         }
 
-        window.onload = function() { populateDropdowns(); };
+        // Trading Board Logic
+        function submitPost() {
+            const discord = document.getElementById('post-discord').value.trim();
+            const offer = document.getElementById('post-offer').value.trim();
+            const request = document.getElementById('post-request').value.trim();
+
+            if(!discord || !offer || !request) {
+                alert("Please fill out all fields!");
+                return;
+            }
+
+            const newPost = { discord, offer, request, time: new Date().toLocaleString() };
+            let posts = JSON.parse(localStorage.getItem('trade_posts') || '[]');
+            posts.unshift(newPost); // Add to top
+            if(posts.length > 50) posts.pop(); // Keep limit to 50
+            
+            localStorage.setItem('trade_posts', JSON.stringify(posts));
+            
+            // Clear inputs
+            document.getElementById('post-offer').value = '';
+            document.getElementById('post-request').value = '';
+            
+            renderFeed();
+        }
+
+        function renderFeed() {
+            const feed = document.getElementById('trade-feed');
+            const posts = JSON.parse(localStorage.getItem('trade_posts') || '[]');
+            
+            if(posts.length === 0) {
+                feed.innerHTML = `<div style="text-align:center; color: var(--text-muted); padding: 2rem;">No trades posted yet. Be the first!</div>`;
+                return;
+            }
+
+            feed.innerHTML = posts.map(p => `
+                <div class="trade-post">
+                    <div class="post-header">
+                        <div class="discord-user">💬 ${p.discord}</div>
+                        <div class="post-time">${p.time}</div>
+                    </div>
+                    <div class="trade-details">
+                        <div class="trade-side">
+                            <h4>Offering</h4>
+                            <div class="trade-items">${p.offer}</div>
+                        </div>
+                        <div class="trade-icon">🔁</div>
+                        <div class="trade-side" style="text-align:right;">
+                            <h4>Looking For</h4>
+                            <div class="trade-items">${p.request}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Init
+        window.onload = function() {
+            renderGrid();
+            addSlot('offer');
+            addSlot('request');
+        };
     </script>
 </body>
 </html>
