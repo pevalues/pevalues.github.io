@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prior Extinction Tracker</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Discord / Open Graph Embed Metadata -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pevalues.github.io/">
+    <meta property="og:title" content="Prior Extinction Values - Largest & Most Accurate Value List">
+    <meta property="og:description" content="Official Prior Extinction Value List. Your source for accurate skin values, demand rankings, and a live community trading board!">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=500&auto=format&fit=crop&q=60">
+    <meta name="theme-color" content="#3b82f6">
+
     <style>
         :root {
             /* Tier Colors */
@@ -504,12 +513,11 @@
 
             const newPost = { discord, offer, request, time: new Date().toLocaleString() };
             let posts = JSON.parse(localStorage.getItem('trade_posts') || '[]');
-            posts.unshift(newPost); // Add to top
-            if(posts.length > 50) posts.pop(); // Keep limit to 50
+            posts.unshift(newPost);
+            if(posts.length > 50) posts.pop();
             
             localStorage.setItem('trade_posts', JSON.stringify(posts));
             
-            // Clear inputs
             document.getElementById('post-offer').value = '';
             document.getElementById('post-request').value = '';
             
