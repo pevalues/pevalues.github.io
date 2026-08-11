@@ -184,9 +184,9 @@
             width: 100%; max-width: 500px; padding: 0.85rem 1.25rem;
             border-radius: 50px; background-color: var(--bg-card);
             border: 2px solid rgba(255, 255, 255, 0.1); color: #fff;
-            font-size: 1rem; outline: none; transition: border-color 0.2s;
+            font-size: 1rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .search-box:focus { border-color: var(--accent); }
+        .search-box:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
 
         /* Tier Sections */
         .tier-section { margin-bottom: 4rem; }
@@ -220,7 +220,7 @@
         .legendary-title { color: #facc15; text-shadow: 0 0 15px rgba(234, 179, 8, 0.6); }
 
         /* Grid Layout */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
 
         /* Card Design */
         .card { background-color: var(--bg-card); border-radius: 12px; padding: 1.25rem; position: relative; transition: transform 0.2s ease; border: 1px solid rgba(255, 255, 255, 0.05); }
@@ -255,7 +255,8 @@
         .image-placeholder { width: 100%; height: 120px; background-color: rgba(0, 0, 0, 0.3); border-radius: 8px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; border: 1px dashed rgba(255, 255, 255, 0.1); }
         .stat-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; font-size: 0.9rem; }
         .stat-label { color: var(--text-muted); font-weight: 600; }
-        .stat-value { font-weight: 800; }
+        .stat-value { font-weight: 800; text-align: right; }
+        .value-soon { font-style: italic; color: var(--text-muted); }
 
         /* Trend Indicators */
         .trend-rising { color: var(--rising); }
@@ -268,16 +269,82 @@
         .demand-bar-bg { height: 6px; background-color: rgba(255, 255, 255, 0.1); border-radius: 3px; margin-top: 0.4rem; overflow: hidden; }
         .demand-fill { height: 100%; border-radius: 3px; }
 
-        /* Calculator Section */
-        .calculator-section { background-color: var(--bg-card); border-radius: 16px; padding: 2rem 1.5rem; margin-top: 4rem; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
-        .calc-title { text-align: center; font-size: 1.75rem; font-weight: 800; margin-bottom: 1.5rem; background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .calc-box { background-color: rgba(0, 0, 0, 0.2); padding: 1.25rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .calc-box h3 { margin-bottom: 1rem; font-size: 1.1rem; text-align: center; }
-        .calc-select-group { margin-bottom: 0.75rem; }
-        .calc-select { width: 100%; padding: 0.6rem; border-radius: 8px; background-color: var(--bg-card-hover); color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); outline: none; font-size: 0.9rem; }
-        .calc-result { margin-top: 2rem; text-align: center; padding: 1.25rem; background-color: var(--bg-card-hover); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .calc-status { font-size: 1.5rem; font-weight: 800; margin-top: 0.5rem; }
+        /* Redesigned Calculator Section */
+        .calculator-section { 
+            background-color: var(--bg-card); 
+            border-radius: 16px; 
+            padding: 2.5rem 2rem; 
+            margin-top: 4rem; 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+        }
+        .calc-title { 
+            text-align: center; 
+            font-size: 1.75rem; 
+            font-weight: 800; 
+            margin-bottom: 2rem; 
+            background: linear-gradient(to right, #60a5fa, #a78bfa); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        .calc-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 2rem; 
+        }
+        .calc-box { 
+            background-color: rgba(0, 0, 0, 0.2); 
+            padding: 1.5rem; 
+            border-radius: 16px; 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+        }
+        .calc-box h3 { 
+            margin-bottom: 1.5rem; 
+            font-size: 1.25rem; 
+            text-align: center; 
+            font-weight: 800;
+        }
+        .calc-select-group { 
+            margin-bottom: 1rem; 
+        }
+        
+        /* New Rounded Search-Style Selects */
+        .calc-select { 
+            width: 100%; 
+            padding: 0.85rem 1.25rem; 
+            border-radius: 50px; 
+            background-color: var(--bg-card); 
+            color: #fff; 
+            border: 2px solid rgba(255, 255, 255, 0.1); 
+            outline: none; 
+            font-size: 1rem;
+            cursor: pointer;
+            appearance: none; /* Hides default dropdown arrow */
+            /* Custom SVG Arrow */
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 1.25rem top 50%;
+            background-size: 0.65rem auto;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .calc-select:focus {
+            border-color: var(--accent); 
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .calc-result { 
+            margin-top: 2rem; 
+            text-align: center; 
+            padding: 1.5rem; 
+            background-color: var(--bg-card-hover); 
+            border-radius: 16px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+        }
+        .calc-status { 
+            font-size: 1.75rem; 
+            font-weight: 800; 
+            margin-top: 0.5rem; 
+        }
         .status-win { color: var(--rising); }
         .status-fair { color: var(--stable); }
         .status-loss { color: var(--dropping); }
@@ -316,7 +383,7 @@
             <input type="text" id="searchInput" class="search-box" placeholder="Search skins..." onkeyup="filterSkins()">
         </div>
 
-        <!-- ULTIMATE TIER -->
+        <!-- ULTIMATE TIER (Alphabetized) -->
         <section class="tier-section">
             <div class="tier-header">
                 <h2 class="tier-title ultimate-title">Ultimate Tier</h2>
@@ -324,11 +391,12 @@
             
             <div class="grid" id="ultimateGrid">
                 
-                <!-- Thunderheart -->
-                <div class="card ultimate-card" data-name="thunderheart" data-value="1000">
-                    <div class="card-title">Thunderheart <span class="bubble-gold">50-100 EXISTS</span></div>
+                <!-- Classic Sauroposidon -->
+                <div class="card ultimate-card" data-name="classic sauroposidon" data-value="0">
+                    <div class="card-title">Classic Sauroposidon <span class="bubble-gold">11 EXISTS</span></div>
                     <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value text-gold">1M</span></div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon text-gold">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value text-gold">Owner Choice</span></div>
                     <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
                     <div class="demand-container">
                         <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value text-gold">10/10</span></div>
@@ -336,11 +404,12 @@
                     </div>
                 </div>
 
-                <!-- Classic Sauroposidon -->
-                <div class="card ultimate-card" data-name="classic sauroposidon" data-value="0">
-                    <div class="card-title">Classic Sauroposidon <span class="bubble-gold">11 EXISTS</span></div>
+                <!-- Thunderheart -->
+                <div class="card ultimate-card" data-name="thunderheart" data-value="1000">
+                    <div class="card-title">Thunderheart <span class="bubble-gold">50-100 EXISTS</span></div>
                     <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value text-gold">Owner Choice</span></div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon text-gold">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value text-gold">1M</span></div>
                     <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
                     <div class="demand-container">
                         <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value text-gold">10/10</span></div>
@@ -351,7 +420,7 @@
             </div>
         </section>
 
-        <!-- MYTHIC TIER -->
+        <!-- MYTHIC TIER (Alphabetized A-Z) -->
         <section class="tier-section">
             <div class="tier-header">
                 <h2 class="tier-title mythic-title">Mythic Tier</h2>
@@ -359,71 +428,51 @@
             
             <div class="grid" id="mythicGrid">
                 
-                <!-- 1. King Alask -->
-                <div class="card mythic-card" data-name="king alask" data-value="85">
-                    <div class="card-title">King Alask</div>
+                <!-- Alask sub-species -->
+                <div class="card mythic-card" data-name="alask sub-species" data-value="80">
+                    <div class="card-title">Alask sub-species</div>
                     <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">50k - 120k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">70k - 90k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
                     <div class="demand-container">
                         <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">9/10</span></div>
                         <div class="demand-bar-bg"><div class="demand-fill" style="width: 90%; background-color: var(--rising);"></div></div>
                     </div>
                 </div>
 
-                <!-- 2. Nordlys -->
-                <div class="card mythic-card" data-name="nordlys" data-value="47">
-                    <div class="card-title">Nordlys</div>
+                <!-- Argent sub-species -->
+                <div class="card mythic-card" data-name="argent sub-species" data-value="75">
+                    <div class="card-title">Argent sub-species</div>
                     <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">64k - 30k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-dropping"><span class="trend-icon">↘</span> Dropping</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">3/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 30%; background-color: var(--dropping);"></div></div>
-                    </div>
-                </div>
-
-                <!-- 3. Liberty -->
-                <div class="card mythic-card" data-name="liberty" data-value="80">
-                    <div class="card-title">Liberty</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">80k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">7/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 70%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <!-- 4. Sonora -->
-                <div class="card mythic-card" data-name="sonora" data-value="65">
-                    <div class="card-title">Sonora</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">60k - 70k</span></div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">60k - 90k</span></div>
                     <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
                     <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div></div>
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--stable);"></div></div>
                     </div>
                 </div>
 
-                <!-- 5. Tealback -->
-                <div class="card mythic-card" data-name="tealback" data-value="95">
-                    <div class="card-title">Tealback</div>
+                <!-- Charon Spinosaurus -->
+                <div class="card mythic-card" data-name="charon spinosaurus" data-value="90">
+                    <div class="card-title">Charon Spinosaurus</div>
                     <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">80k - 110k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Sl. Rising</span></div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">80k - 100k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
                     <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">7.5/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 75%; background-color: var(--rising);"></div></div>
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--rising);"></div></div>
                     </div>
                 </div>
 
-                <!-- 6. Fire Agate -->
+                <!-- Fire Agate -->
                 <div class="card mythic-card" data-name="fire agate" data-value="31">
                     <div class="card-title">Fire Agate</div>
                     <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">23k - 40k</span></div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">23k - 40k</span></div>
                     <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
                     <div class="demand-container">
                         <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">7/10</span></div>
@@ -431,66 +480,12 @@
                     </div>
                 </div>
 
-                <!-- Other Mythics -->
-                <div class="card mythic-card" data-name="giga sub-species" data-value="55">
-                    <div class="card-title">Giga sub-species</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">50k - 60k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="alask sub-species" data-value="80">
-                    <div class="card-title">Alask sub-species</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">70k - 90k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">9/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 90%; background-color: var(--rising);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="argent sub-species" data-value="75">
-                    <div class="card-title">Argent sub-species</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">60k - 90k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="maroc sub-species" data-value="70">
-                    <div class="card-title">Maroc sub-species</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">60k - 80k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--stable);"></div></div>
-                    </div>
-                </div>
-
-                <div class="card mythic-card" data-name="charon spinosaurus" data-value="90">
-                    <div class="card-title">Charon Spinosaurus</div>
-                    <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">80k - 100k</span></div>
-                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
-                    <div class="demand-container">
-                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
-                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--rising);"></div></div>
-                    </div>
-                </div>
-
+                <!-- Geo sail Spino -->
                 <div class="card mythic-card" data-name="geo sail spino" data-value="65">
                     <div class="card-title">Geo sail Spino</div>
                     <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">60k - 70k</span></div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">60k - 70k</span></div>
                     <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
                     <div class="demand-container">
                         <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
@@ -498,10 +493,25 @@
                     </div>
                 </div>
 
-                <div class="card mythic-card" data-name="split jaw" data-value="300">
-                    <div class="card-title">Split jaw</div>
+                <!-- Giga sub-species -->
+                <div class="card mythic-card" data-name="giga sub-species" data-value="55">
+                    <div class="card-title">Giga sub-species</div>
                     <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">250k - 350k</span></div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">50k - 60k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div></div>
+                    </div>
+                </div>
+
+                <!-- King Alask -->
+                <div class="card mythic-card" data-name="king alask" data-value="85">
+                    <div class="card-title">King Alask</div>
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">50k - 120k</span></div>
                     <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
                     <div class="demand-container">
                         <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">9/10</span></div>
@@ -509,21 +519,101 @@
                     </div>
                 </div>
 
+                <!-- Liberty -->
+                <div class="card mythic-card" data-name="liberty" data-value="80">
+                    <div class="card-title">Liberty</div>
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">80k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">7/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 70%; background-color: var(--stable);"></div></div>
+                    </div>
+                </div>
+
+                <!-- Maroc sub-species -->
+                <div class="card mythic-card" data-name="maroc sub-species" data-value="70">
+                    <div class="card-title">Maroc sub-species</div>
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">60k - 80k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--stable);"></div></div>
+                    </div>
+                </div>
+
+                <!-- Multi Eyed -->
                 <div class="card mythic-card" data-name="multi eyed" data-value="275">
                     <div class="card-title">Multi Eyed</div>
                     <div class="image-placeholder">Skin Image</div>
-                    <div class="stat-row"><span class="stat-label">Value:</span><span class="stat-value">250k - 300k</span></div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">250k - 300k</span></div>
                     <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
                     <div class="demand-container">
                         <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">8/10</span></div>
                         <div class="demand-bar-bg"><div class="demand-fill" style="width: 80%; background-color: var(--rising);"></div></div>
+                    </div>
+                </div>
+
+                <!-- Nordlys -->
+                <div class="card mythic-card" data-name="nordlys" data-value="47">
+                    <div class="card-title">Nordlys</div>
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">64k - 30k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-dropping"><span class="trend-icon">↘</span> Dropping</span></div>
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">3/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 30%; background-color: var(--dropping);"></div></div>
+                    </div>
+                </div>
+
+                <!-- Sonora -->
+                <div class="card mythic-card" data-name="sonora" data-value="65">
+                    <div class="card-title">Sonora</div>
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">60k - 70k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-stable"><span class="trend-icon">→</span> Stable</span></div>
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">6/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 60%; background-color: var(--stable);"></div></div>
+                    </div>
+                </div>
+
+                <!-- Split jaw -->
+                <div class="card mythic-card" data-name="split jaw" data-value="300">
+                    <div class="card-title">Split jaw</div>
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">250k - 350k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Rising</span></div>
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">9/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 90%; background-color: var(--rising);"></div></div>
+                    </div>
+                </div>
+
+                <!-- Tealback -->
+                <div class="card mythic-card" data-name="tealback" data-value="95">
+                    <div class="card-title">Tealback</div>
+                    <div class="image-placeholder">Skin Image</div>
+                    <div class="stat-row"><span class="stat-label">Game Value:</span><span class="stat-value value-soon">Soon</span></div>
+                    <div class="stat-row"><span class="stat-label">Com. Value:</span><span class="stat-value">80k - 110k</span></div>
+                    <div class="stat-row"><span class="stat-label">Trend:</span><span class="stat-value trend-rising"><span class="trend-icon">↗</span> Sl. Rising</span></div>
+                    <div class="demand-container">
+                        <div class="stat-row" style="margin-bottom:0;"><span class="stat-label">Demand:</span><span class="stat-value">7.5/10</span></div>
+                        <div class="demand-bar-bg"><div class="demand-fill" style="width: 75%; background-color: var(--rising);"></div></div>
                     </div>
                 </div>
 
             </div>
         </section>
 
-        <!-- TRADE CALCULATOR SECTION -->
+        <!-- REDESIGNED TRADE CALCULATOR -->
         <section class="calculator-section" id="calculator">
             <h2 class="calc-title">Trade Calculator</h2>
             <div class="calc-grid">
@@ -533,7 +623,7 @@
                     <div class="calc-select-group"><select class="calc-select offer-item" onchange="calculateTrade()"></select></div>
                     <div class="calc-select-group"><select class="calc-select offer-item" onchange="calculateTrade()"></select></div>
                     <div class="calc-select-group"><select class="calc-select offer-item" onchange="calculateTrade()"></select></div>
-                    <div style="text-align: right; margin-top: 1rem; font-weight: 800;">
+                    <div style="text-align: right; margin-top: 1.5rem; font-size: 1.1rem; font-weight: 800;">
                         Total Value: <span id="yourTotal">0</span>k
                     </div>
                 </div>
@@ -543,7 +633,7 @@
                     <div class="calc-select-group"><select class="calc-select Request-item" onchange="calculateTrade()"></select></div>
                     <div class="calc-select-group"><select class="calc-select Request-item" onchange="calculateTrade()"></select></div>
                     <div class="calc-select-group"><select class="calc-select Request-item" onchange="calculateTrade()"></select></div>
-                    <div style="text-align: right; margin-top: 1rem; font-weight: 800;">
+                    <div style="text-align: right; margin-top: 1.5rem; font-size: 1.1rem; font-weight: 800;">
                         Total Value: <span id="theirTotal">0</span>k
                     </div>
                 </div>
@@ -551,7 +641,7 @@
             </div>
 
             <div class="calc-result">
-                <div>Trade Win/Loss Status:</div>
+                <div style="font-size: 1.1rem; font-weight: 600; color: var(--text-muted);">Trade Win/Loss Status</div>
                 <div class="calc-status" id="calcStatus">FAIR TRADE</div>
             </div>
         </section>
@@ -604,25 +694,28 @@
             });
         }
 
-        // Trade Calculator Logic
-        const skinsList = [
-            { name: "None", value: 0 },
-            { name: "Thunderheart (1M)", value: 1000 },
-            { name: "Split jaw (300k)", value: 300 },
-            { name: "Multi Eyed (275k)", value: 275 },
-            { name: "Tealback (95k)", value: 95 },
-            { name: "Charon Spinosaurus (90k)", value: 90 },
-            { name: "King Alask (85k)", value: 85 },
-            { name: "Liberty (80k)", value: 80 },
+        // Trade Calculator Logic (Alphabetized)
+        let skinsList = [
             { name: "Alask sub-species (80k)", value: 80 },
             { name: "Argent sub-species (75k)", value: 75 },
-            { name: "Maroc sub-species (70k)", value: 70 },
-            { name: "Sonora (65k)", value: 65 },
+            { name: "Charon Spinosaurus (90k)", value: 90 },
+            { name: "Classic Sauroposidon (Owner Choice)", value: 0 },
+            { name: "Fire Agate (31.5k)", value: 31.5 },
             { name: "Geo sail Spino (65k)", value: 65 },
             { name: "Giga sub-species (55k)", value: 55 },
+            { name: "King Alask (85k)", value: 85 },
+            { name: "Liberty (80k)", value: 80 },
+            { name: "Maroc sub-species (70k)", value: 70 },
+            { name: "Multi Eyed (275k)", value: 275 },
             { name: "Nordlys (47k)", value: 47 },
-            { name: "Fire Agate (31.5k)", value: 31.5 }
+            { name: "Sonora (65k)", value: 65 },
+            { name: "Split jaw (300k)", value: 300 },
+            { name: "Tealback (95k)", value: 95 },
+            { name: "Thunderheart (1M)", value: 1000 }
         ];
+
+        // Ensure "None" is always perfectly at the top
+        skinsList.unshift({ name: "Select an item...", value: 0 });
 
         function populateDropdowns() {
             const selects = document.querySelectorAll('.calc-select');
