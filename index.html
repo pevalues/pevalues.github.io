@@ -3,40 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prior Extinction Valuelist</title>
+    <title>PE Valuelist - Prior Extinction</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-    <!-- Discord / Open Graph Embed Metadata -->
+    <!-- Metadata -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pevalues.github.io/">
-    <meta property="og:title" content="Prior Extinction Values - Largest & Most Accurate Value List">
+    <meta property="og:title" content="PE Valuelist - Largest & Most Accurate Value List">
     <meta property="og:description" content="Official Prior Extinction Value List. Your source for accurate skin values, demand rankings, and a live community trading board!">
-    <meta property="og:image" content="https://pevalues.github.io/Screenshot_20260811_173615_Google.jpg">
     <meta name="theme-color" content="#8b5cf6">
 
     <style>
         :root {
-            /* Tier Colors */
             --ultimate: #facc15;
             --mythic: #60a5fa;
             --fabled: #ef4444;
             --legendary: #eab308;
             
-            /* Theme Colors */
             --bg-main: #0b0f19;
-            --bg-card: rgba(21, 28, 44, 0.6);
+            --bg-card: #151c2c;
             --bg-card-solid: #151c2c;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #8b5cf6;
             
-            /* Status Colors */
             --rising: #34d399;
             --dropping: #f87171;
             --stable: #fbbf24;
         }
 
-        /* Fixed white background bleed issue */
         html { 
             background-color: var(--bg-main); 
             min-height: 100vh;
@@ -45,9 +40,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         
         body { 
-            background: radial-gradient(circle at top right, #111827, var(--bg-main) 100%);
-            background-attachment: fixed;
-            background-color: var(--bg-main); /* Fallback to strictly dark */
+            background: #0b0f19; /* Solid background to fix lag */
             color: var(--text-main); 
             line-height: 1.6; 
             overflow-x: hidden; 
@@ -56,14 +49,13 @@
 
         /* Navbar Header */
         header {
-            background-color: rgba(11, 15, 25, 0.7); 
+            background-color: rgba(11, 15, 25, 0.95); /* Removed blur for performance */
             padding: 1rem 1.5rem; 
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             position: sticky; top: 0; z-index: 100; 
-            display: flex; align-items: center; justify-content: space-between; 
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            display: none; /* Hidden on landing page */
+            align-items: center; justify-content: space-between; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
         .header-left { display: flex; align-items: center; }
         .menu-btn { display: flex; flex-direction: column; gap: 5px; cursor: pointer; z-index: 200; margin-right: 1.5rem; }
@@ -72,95 +64,134 @@
         .menu-btn.active span:nth-child(2) { opacity: 0; }
         .menu-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
         
-        .logo { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #60a5fa, #c084fc, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0px 4px 15px rgba(192, 132, 252, 0.3); text-transform: uppercase; }
+        .logo { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #60a5fa, #c084fc, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
         .last-updated { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
 
         /* Side Menu */
         .side-menu {
             position: fixed; top: 0; left: -280px; width: 280px; height: 100vh; 
-            background: linear-gradient(to bottom, #151c2c, #0b0f19);
-            z-index: 150; transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            background: #111622;
+            z-index: 150; transition: left 0.3s ease; 
             padding-top: 6rem; box-shadow: 10px 0 30px rgba(0,0,0,0.8); 
             border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
         .side-menu.active { left: 0; }
-        .side-menu a { display: block; padding: 1.2rem 2rem; color: var(--text-main); text-decoration: none; font-size: 1.1rem; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.02); transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden; }
+        .side-menu a { display: block; padding: 1.2rem 2rem; color: var(--text-main); text-decoration: none; font-size: 1.1rem; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.02); transition: 0.2s; cursor: pointer; }
         .side-menu a:hover { background-color: rgba(255,255,255,0.05); padding-left: 2.5rem; color: #c084fc; }
 
-        .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 140; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); z-index: 140; opacity: 0; visibility: hidden; transition: 0.3s ease; }
         .overlay.active { opacity: 1; visibility: visible; }
 
         /* Modals */
         .modal {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -45%) scale(0.95); 
-            background: linear-gradient(145deg, var(--bg-card-solid), #0b0f19);
+            background: var(--bg-card-solid);
             padding: 2rem; border-radius: 24px; z-index: 300; 
             border: 1px solid rgba(255, 255, 255, 0.1); 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05) inset;
-            opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; 
             width: 90%; max-width: 500px; max-height: 85vh; overflow-y: auto;
         }
         .modal.active { transform: translate(-50%, -50%) scale(1); opacity: 1; visibility: visible; }
-        .modal h2 { margin-bottom: 1.5rem; background: linear-gradient(to right, #c084fc, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; }
-        .modal-close { margin-top: 2rem; background: linear-gradient(135deg, #4b5563, #374151); color: white; border: none; padding: 1rem 1.5rem; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .modal-close:hover { background: linear-gradient(135deg, #ef4444, #b91c1c); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4); }
+        .modal h2 { margin-bottom: 1.5rem; color: #c084fc; text-align: center; }
+        .modal-close { margin-top: 2rem; background: #374151; color: white; border: none; padding: 1rem 1.5rem; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.2s; }
+        .modal-close:hover { background: #ef4444; }
 
         /* Main Container */
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; display: none; }
-        .container.active { display: block; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .container.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- LANDING PAGE STYLES --- */
+        #view-landing {
+            display: none;
+            height: 100vh;
+            width: 100vw;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #151c2c 0%, #0b0f19 100%);
+            position: fixed;
+            top: 0; left: 0; z-index: 500;
+        }
+        #view-landing.active { display: flex; animation: fadeUp 1s ease-out; }
+        
+        .landing-img-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .landing-img-container::after {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 110%; height: 110%; background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            filter: blur(40px); opacity: 0.4; z-index: -1; animation: pulseGlow 3s infinite alternate;
+        }
+        .landing-img {
+            width: 180px; height: 180px; object-fit: cover; border-radius: 24px;
+            border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .landing-title {
+            font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -1px;
+            background: linear-gradient(135deg, #f8fafc, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .landing-subtitle {
+            font-size: 1.25rem; color: var(--text-muted); font-weight: 600; margin-bottom: 3rem; height: 30px;
+        }
+        .typewriter { color: #60a5fa; }
+        .cursor { display: inline-block; width: 3px; background-color: #60a5fa; margin-left: 2px; animation: blink 0.8s infinite; }
+        .btn-enter {
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6); color: white; border: none;
+            padding: 1rem 2.5rem; border-radius: 50px; font-weight: 800; font-size: 1.2rem;
+            cursor: pointer; transition: 0.3s; box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-enter:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(139, 92, 246, 0.6); }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseGlow { from { opacity: 0.3; } to { opacity: 0.6; transform: translate(-50%, -50%) scale(1.05); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
         /* Filtering Section */
         .filter-container { 
-            background: var(--bg-card); 
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            padding: 1.5rem; border-radius: 16px; margin-bottom: 2.5rem; 
-            border: 1px solid rgba(255,255,255,0.08); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: #111622; padding: 1.5rem; border-radius: 16px; margin-bottom: 2.5rem; 
+            border: 1px solid rgba(255,255,255,0.05); 
         }
-        .search-box { width: 100%; padding: 1rem 1.5rem; border-radius: 12px; background-color: rgba(0,0,0,0.4); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; font-size: 1rem; outline: none; margin-bottom: 1.5rem; transition: 0.3s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
-        .search-box:focus { border-color: #c084fc; box-shadow: 0 0 0 3px rgba(192, 132, 252, 0.2), inset 0 2px 4px rgba(0,0,0,0.5); }
+        .search-box { width: 100%; padding: 1rem 1.5rem; border-radius: 12px; background-color: rgba(0,0,0,0.4); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; font-size: 1rem; outline: none; margin-bottom: 1.5rem; transition: 0.2s; }
+        .search-box:focus { border-color: #c084fc; }
         
         .filter-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
-        .filter-select { padding: 0.85rem; border-radius: 12px; background-color: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; cursor: pointer; transition: 0.3s; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
-        .filter-select:focus { border-color: #60a5fa; }
+        .filter-select { padding: 0.85rem; border-radius: 12px; background-color: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; cursor: pointer; transition: 0.2s; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
 
         /* Tier Titles */
         .tier-header { display: flex; align-items: center; margin: 3rem 0 1.5rem 0; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); position: relative; }
         .tier-header::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 50px; height: 2px; background: var(--accent); }
         .tier-title { font-size: 1.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; width: 100%; }
         
-        @keyframes shine { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .ultimate-title { background: linear-gradient(90deg, #facc15, #fffbeb, #f59e0b, #facc15); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
-        .mythic-title { color: #60a5fa; text-shadow: 0 0 15px rgba(96, 165, 250, 0.4); }
-        .legendary-title { color: #eab308; text-shadow: 0 0 15px rgba(234, 179, 8, 0.4); }
+        .ultimate-title { color: #facc15; }
+        .mythic-title { color: #60a5fa; }
+        .legendary-title { color: #eab308; }
 
         /* Grid & Cards */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.5rem; }
         .card { 
-            background: linear-gradient(160deg, var(--bg-card-solid) 0%, rgba(15,20,35,1) 100%);
+            background: var(--bg-card-solid);
             border-radius: 16px; padding: 1.5rem; position: relative; 
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            transition: transform 0.2s ease; 
             border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.5);
             overflow: hidden;
         }
-        .card:hover { 
-            transform: translateY(-8px) scale(1.02); 
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.7), 0 0 20px rgba(255,255,255,0.03); 
-            border-color: rgba(255,255,255,0.15);
-        }
+        .card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15); }
         
         .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; z-index: 1; }
-        .ultimate-card::before { background: linear-gradient(90deg, #facc15, #f59e0b); box-shadow: 0 2px 10px rgba(250, 204, 21, 0.5); }
-        .mythic-card::before { background: linear-gradient(90deg, #60a5fa, #3b82f6); box-shadow: 0 2px 10px rgba(96, 165, 250, 0.5); }
-        .legendary-card::before { background: linear-gradient(90deg, #eab308, #ca8a04); box-shadow: 0 2px 10px rgba(234, 179, 8, 0.5); }
+        .ultimate-card::before { background: var(--ultimate); }
+        .mythic-card::before { background: var(--mythic); }
+        .legendary-card::before { background: var(--legendary); }
 
         .bubble { display: inline-block; font-size: 0.65rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; margin-left: 8px; vertical-align: middle; letter-spacing: 0.5px; }
-        .bubble-gold { background: linear-gradient(135deg, #facc15, #f59e0b); color: #000; box-shadow: 0 2px 8px rgba(250, 204, 21, 0.4); }
+        .bubble-gold { background: var(--ultimate); color: #000; }
 
-        .card-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 1.2rem; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .text-gold { color: #facc15 !important; font-weight: 800; text-shadow: 0 0 10px rgba(250, 204, 21, 0.3); }
+        .card-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 1.2rem; text-align: center; }
+        .text-gold { color: #facc15 !important; font-weight: 800; }
         
         .stat-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; font-size: 0.95rem; background: rgba(0,0,0,0.2); padding: 8px 12px; border-radius: 8px; }
         .stat-label { color: var(--text-muted); font-weight: 600; }
@@ -170,26 +201,24 @@
         .trend-dropping { color: var(--dropping); }
         .trend-stable { color: var(--stable); }
         
-        .demand-bar-bg { height: 8px; background-color: rgba(0, 0, 0, 0.5); border-radius: 4px; margin-top: 0.6rem; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.5); }
-        .demand-fill { height: 100%; border-radius: 4px; box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        .demand-bar-bg { height: 8px; background-color: rgba(0, 0, 0, 0.5); border-radius: 4px; margin-top: 0.6rem; overflow: hidden; }
+        .demand-fill { height: 100%; border-radius: 4px; }
 
         /* Calculator Section Layout */
         .calc-wrapper {
-            background: linear-gradient(145deg, var(--bg-card-solid), #0b0f19);
+            background: var(--bg-card-solid);
             border-radius: 24px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
             margin-top: 1rem;
         }
         .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
         .calc-box { background: rgba(0, 0, 0, 0.3); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.05); }
         .calc-box h3 { margin-bottom: 1rem; text-align: center; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* New Custom Slot Design */
         .slot-container { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem; }
         .skin-slot {
             background: rgba(255, 255, 255, 0.03); border: 2px dashed rgba(255, 255, 255, 0.1);
             border-radius: 12px; padding: 1rem; display: flex; justify-content: center; align-items: center;
-            cursor: pointer; transition: 0.3s; min-height: 60px; font-weight: 600; color: var(--text-muted);
+            cursor: pointer; transition: 0.2s; min-height: 60px; font-weight: 600; color: var(--text-muted);
         }
         .skin-slot:hover { border-color: var(--accent); background: rgba(139, 92, 246, 0.05); color: white; }
         
@@ -200,34 +229,30 @@
         .skin-slot.filled .skin-info { display: flex; flex-direction: column; }
         .skin-slot.filled .skin-name { color: #fff; font-weight: 800; font-size: 1rem; }
         .skin-slot.filled .skin-val { color: var(--text-muted); font-size: 0.8rem; }
-        .slot-remove { background: #ef4444; color: white; border: none; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s; }
-        .slot-remove:hover { background: #b91c1c; transform: scale(1.1); }
-
-        .currency-input { width: 100%; padding: 1rem; border-radius: 12px; background-color: rgba(0,0,0,0.5); color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); outline: none; font-weight: 600; }
-        .currency-input:focus { border-color: #34d399; }
+        .slot-remove { background: #ef4444; color: white; border: none; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; font-weight: bold; }
         
-        .calc-result { margin-top: 2rem; text-align: center; padding: 2rem; background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9)); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); }
-        .calc-status { font-size: 2rem; font-weight: 800; margin-top: 0.5rem; text-shadow: 0 2px 10px rgba(0,0,0,0.5); letter-spacing: 1px; }
-        .status-win { color: var(--rising); text-shadow: 0 0 20px rgba(52, 211, 153, 0.4); }
-        .status-fair { color: var(--stable); text-shadow: 0 0 20px rgba(251, 191, 36, 0.4); }
-        .status-loss { color: var(--dropping); text-shadow: 0 0 20px rgba(248, 113, 113, 0.4); }
+        .currency-input { width: 100%; padding: 1rem; border-radius: 12px; background-color: rgba(0,0,0,0.5); color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); outline: none; font-weight: 600; }
+        
+        .calc-result { margin-top: 2rem; text-align: center; padding: 2rem; background: #111622; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .calc-status { font-size: 2rem; font-weight: 800; margin-top: 0.5rem; }
+        .status-win { color: var(--rising); }
+        .status-fair { color: var(--stable); }
+        .status-loss { color: var(--dropping); }
 
-        /* Search List inside Modal */
         .search-list { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; max-height: 300px; overflow-y: auto; padding-right: 5px; }
-        .search-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(0,0,0,0.3); border-radius: 8px; cursor: pointer; border: 1px solid transparent; transition: 0.2s; }
+        .search-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(0,0,0,0.3); border-radius: 8px; cursor: pointer; border: 1px solid transparent; }
         .search-item:hover { background: rgba(139, 92, 246, 0.2); border-color: var(--accent); }
         .search-item-val { font-weight: 800; color: #facc15; }
 
         /* Trading Board */
-        .post-form { background: linear-gradient(145deg, var(--bg-card-solid), #0b0f19); padding: 2rem; border-radius: 20px; margin-bottom: 3rem; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        .post-form { background: var(--bg-card-solid); padding: 2rem; border-radius: 20px; margin-bottom: 3rem; border: 1px solid rgba(255, 255, 255, 0.08); }
         .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
-        .form-input { width: 100%; padding: 1rem; border-radius: 12px; background-color: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; transition: 0.3s; }
-        .btn-submit { background: linear-gradient(135deg, #8b5cf6, #3b82f6); color: white; border: none; padding: 1rem 2rem; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 1.1rem; width: 100%; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6); }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; font-size: 0.85rem; }
+        .form-input { width: 100%; padding: 1rem; border-radius: 12px; background-color: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; }
+        .btn-submit { background: #8b5cf6; color: white; border: none; padding: 1rem 2rem; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 1.1rem; width: 100%; text-transform: uppercase; }
 
         .trade-feed { display: flex; flex-direction: column; gap: 1.5rem; }
-        .trade-post { background: var(--bg-card-solid); padding: 1.5rem 2rem; border-radius: 16px; border-left: 5px solid #c084fc; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .trade-post { background: var(--bg-card-solid); padding: 1.5rem 2rem; border-radius: 16px; border-left: 5px solid #c084fc; }
         .post-header { display: flex; justify-content: space-between; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1rem; }
         .discord-user { font-weight: 800; color: #c084fc; }
         .post-time { color: var(--text-muted); font-size: 0.85rem; }
@@ -235,16 +260,25 @@
         .trade-side h4 { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; }
         .trade-items { font-weight: 800; font-size: 1.1rem; color: #f8fafc; }
         
-        /* Scrollbar Styling */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-main); }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
 </head>
 <body>
 
-    <header>
+    <!-- LANDING PAGE VIEW -->
+    <div class="active" id="view-landing">
+        <div class="landing-img-container">
+            <img src="1786780919311.jpeg" alt="Prior Extinction Logo" class="landing-img">
+        </div>
+        <h1 class="landing-title">PE VALUELIST</h1>
+        <p class="landing-subtitle">Your #1 Value List for <br><span id="typing-text" class="typewriter"></span><span class="cursor">|</span></p>
+        <button class="btn-enter" onclick="enterMainSite()">Values & Calculator</button>
+    </div>
+
+    <!-- MAIN HEADER (Hidden until landing is cleared) -->
+    <header id="main-header">
         <div class="header-left">
             <div class="menu-btn" onclick="toggleMenu()">
                 <span></span><span></span><span></span>
@@ -262,7 +296,7 @@
     
     <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
-    <!-- Search Skin Modal for Calculator -->
+    <!-- Search Skin Modal -->
     <div class="modal" id="searchSkinModal">
         <h2>Select a Skin</h2>
         <input type="text" id="modalSkinSearch" class="search-box" placeholder="Search for a skin..." oninput="renderModalSkins()">
@@ -271,7 +305,7 @@
     </div>
 
     <!-- VIEW 1: TRACKER -->
-    <div class="container active" id="view-tracker">
+    <div class="container" id="view-tracker">
         <div class="filter-container">
             <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search for skins, tiers, or species..." oninput="renderGrid()">
             <div class="filter-controls">
@@ -295,13 +329,12 @@
                 </select>
             </div>
         </div>
-
         <div id="skins-container"></div>
     </div>
 
     <!-- VIEW 2: CALCULATOR -->
     <div class="container" id="view-calculator">
-        <h2 style="margin-bottom: 1rem; background: linear-gradient(135deg, #c084fc, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.2rem; text-align: center;">Trade Calculator</h2>
+        <h2 style="margin-bottom: 1rem; color: #c084fc; font-size: 2.2rem; text-align: center;">Trade Calculator</h2>
         <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Compare offers accurately. Limit 4 skins per side.</p>
         
         <div class="calc-wrapper">
@@ -330,7 +363,7 @@
 
     <!-- VIEW 3: TRADING BOARD -->
     <div class="container" id="view-trading">
-        <h2 style="margin-bottom: 2rem; background: linear-gradient(135deg, #60a5fa, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.2rem; text-align: center;">Live Trading Board</h2>
+        <h2 style="margin-bottom: 2rem; color: #60a5fa; font-size: 2.2rem; text-align: center;">Live Trading Board</h2>
         
         <div class="post-form">
             <div class="form-group">
@@ -352,6 +385,76 @@
     </div>
 
     <script>
+        // Typing Effect for Landing Page
+        const typingWords = ["Prior Extinction", "Accurate Trading", "Skin Values"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        function typeEffect() {
+            const currentWord = typingWords[wordIndex];
+            const textElement = document.getElementById("typing-text");
+            
+            if (isDeleting) {
+                textElement.innerText = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.innerText = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause before deleting
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % typingWords.length;
+                typeSpeed = 500; // Pause before typing next word
+            }
+
+            setTimeout(typeEffect, typeSpeed);
+        }
+
+        // Initialize typing effect on load
+        window.onload = () => {
+            typeEffect();
+            renderGrid();
+            renderCalculatorSlots();
+        };
+
+        // Navigation
+        function enterMainSite() {
+            document.getElementById('view-landing').classList.remove('active');
+            document.getElementById('main-header').style.display = 'flex';
+            document.getElementById('view-tracker').classList.add('active');
+        }
+
+        function toggleMenu() {
+            document.querySelector('.menu-btn').classList.toggle('active');
+            document.getElementById('sideMenu').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+
+        function closeAll() {
+            document.querySelector('.menu-btn').classList.remove('active');
+            document.getElementById('sideMenu').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+            document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+        }
+
+        function switchView(viewId) {
+            closeAll();
+            document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
+            // Ensure landing page is hidden
+            document.getElementById('view-landing').classList.remove('active');
+            document.getElementById('main-header').style.display = 'flex';
+            
+            document.getElementById(viewId).classList.add('active');
+            if(viewId === 'view-trading') renderFeed();
+        }
+
         // Data Store
         const skinsData = [
             // Ultimates
@@ -407,7 +510,6 @@
             "legendary": { hex: "#eab308" }
         };
 
-        // State for Calculator
         let calcState = {
             offer: [null, null, null, null],
             request: [null, null, null, null],
@@ -415,28 +517,7 @@
             activeIndex: null
         };
 
-        // UI Toggles
-        function toggleMenu() {
-            document.querySelector('.menu-btn').classList.toggle('active');
-            document.getElementById('sideMenu').classList.toggle('active');
-            document.getElementById('overlay').classList.toggle('active');
-        }
-
-        function closeAll() {
-            document.querySelector('.menu-btn').classList.remove('active');
-            document.getElementById('sideMenu').classList.remove('active');
-            document.getElementById('overlay').classList.remove('active');
-            document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
-        }
-
-        function switchView(viewId) {
-            closeAll();
-            document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
-            document.getElementById(viewId).classList.add('active');
-            if(viewId === 'view-trading') renderFeed();
-        }
-
-        // View 1: Tracker Rendering
+        // Tracker Code
         function renderGrid() {
             const container = document.getElementById('skins-container');
             container.innerHTML = '';
@@ -495,7 +576,7 @@
             container.appendChild(section);
         }
 
-        // View 2: Advanced Calculator Logic
+        // Calculator Code
         function renderCalculatorSlots() {
             ['offer', 'request'].forEach(side => {
                 const container = document.getElementById(`${side}-slots`);
@@ -593,7 +674,7 @@
             }
         }
 
-        // View 3: Trading Board
+        // Trading Board Code
         function submitPost() {
             const discord = document.getElementById('post-discord').value.trim();
             const offer = document.getElementById('post-offer').value.trim();
@@ -641,11 +722,6 @@
                 </div>
             `).join('');
         }
-
-        window.onload = () => {
-            renderGrid();
-            renderCalculatorSlots();
-        };
     </script>
 </body>
 </html>
