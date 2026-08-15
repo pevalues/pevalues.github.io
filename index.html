@@ -40,7 +40,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         
         body { 
-            background: #0b0f19; /* Solid background to fix lag */
+            background: #0b0f19; 
             color: var(--text-main); 
             line-height: 1.6; 
             overflow-x: hidden; 
@@ -49,11 +49,11 @@
 
         /* Navbar Header */
         header {
-            background-color: rgba(11, 15, 25, 0.95); /* Removed blur for performance */
+            background-color: rgba(11, 15, 25, 0.95);
             padding: 1rem 1.5rem; 
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             position: sticky; top: 0; z-index: 100; 
-            display: none; /* Hidden on landing page */
+            display: none;
             align-items: center; justify-content: space-between; 
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
@@ -270,7 +270,7 @@
     <!-- LANDING PAGE VIEW -->
     <div class="active" id="view-landing">
         <div class="landing-img-container">
-            <img src="1786780919311.jpeg" alt="Prior Extinction Logo" class="landing-img">
+            <img src="Screenshot_20260811_173615_Google.jpg" alt="Prior Extinction Logo" class="landing-img">
         </div>
         <h1 class="landing-title">PE VALUELIST</h1>
         <p class="landing-subtitle">Your #1 Value List for <br><span id="typing-text" class="typewriter"></span><span class="cursor">|</span></p>
@@ -407,24 +407,22 @@
 
             if (!isDeleting && charIndex === currentWord.length) {
                 isDeleting = true;
-                typeSpeed = 2000; // Pause before deleting
+                typeSpeed = 2000;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 wordIndex = (wordIndex + 1) % typingWords.length;
-                typeSpeed = 500; // Pause before typing next word
+                typeSpeed = 500;
             }
 
             setTimeout(typeEffect, typeSpeed);
         }
 
-        // Initialize typing effect on load
         window.onload = () => {
             typeEffect();
             renderGrid();
             renderCalculatorSlots();
         };
 
-        // Navigation
         function enterMainSite() {
             document.getElementById('view-landing').classList.remove('active');
             document.getElementById('main-header').style.display = 'flex';
@@ -447,7 +445,6 @@
         function switchView(viewId) {
             closeAll();
             document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
-            // Ensure landing page is hidden
             document.getElementById('view-landing').classList.remove('active');
             document.getElementById('main-header').style.display = 'flex';
             
@@ -455,16 +452,13 @@
             if(viewId === 'view-trading') renderFeed();
         }
 
-        // Data Store
         const skinsData = [
-            // Ultimates
             { name: "Classic Sauroposidon", tier: "ultimate", value: 0, strValue: "Owner Choice", trend: "stable", demand: 10, exists: 11 },
             { name: "Felsic", tier: "ultimate", value: 400, strValue: "350k - 450k", trend: "stable", demand: 9, exists: 75 },
             { name: "Magma Heart", tier: "ultimate", value: 1000, strValue: "1M", trend: "stable", demand: 10, exists: 26 },
             { name: "Neptune", tier: "ultimate", value: 700, strValue: "600k - 800k", trend: "rising", demand: 10, exists: 75 },
             { name: "Thunderheart", tier: "ultimate", value: 1000, strValue: "1M", trend: "stable", demand: 10, exists: 40 },
             
-            // Mythics
             { name: "Agate (Maro Spino)", tier: "mythic", value: 40, strValue: "35k - 45k", trend: "stable", demand: 6 },
             { name: "Alask sub-species", tier: "mythic", value: 80, strValue: "70k - 90k", trend: "stable", demand: 9 },
             { name: "Argent sub-species", tier: "mythic", value: 75, strValue: "60k - 90k", trend: "stable", demand: 8 },
@@ -484,7 +478,6 @@
             { name: "Tealback", tier: "mythic", value: 95, strValue: "80k - 110k", trend: "rising", demand: 7.5 },
             { name: "Tectonic (Sauro)", tier: "mythic", value: 160, strValue: "140k - 180k", trend: "rising", demand: 7.5 },
 
-            // Legendaries
             { name: "Copper", tier: "legendary", value: 57, strValue: "57k", trend: "stable", demand: 5.5 },
             { name: "Garden Diplo", tier: "legendary", value: 2.5, strValue: "2.5k", trend: "stable", demand: 2.5 },
             { name: "Grisnir (Maroccanus)", tier: "legendary", value: 12.5, strValue: "10k - 15k", trend: "stable", demand: 6 },
@@ -517,7 +510,6 @@
             activeIndex: null
         };
 
-        // Tracker Code
         function renderGrid() {
             const container = document.getElementById('skins-container');
             container.innerHTML = '';
@@ -576,7 +568,6 @@
             container.appendChild(section);
         }
 
-        // Calculator Code
         function renderCalculatorSlots() {
             ['offer', 'request'].forEach(side => {
                 const container = document.getElementById(`${side}-slots`);
@@ -674,7 +665,6 @@
             }
         }
 
-        // Trading Board Code
         function submitPost() {
             const discord = document.getElementById('post-discord').value.trim();
             const offer = document.getElementById('post-offer').value.trim();
