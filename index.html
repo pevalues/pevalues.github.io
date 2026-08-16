@@ -179,6 +179,8 @@
             transition: transform 0.2s ease; 
             border: 1px solid rgba(255, 255, 255, 0.05);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         .card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15); }
         
@@ -203,6 +205,8 @@
         
         .demand-bar-bg { height: 8px; background-color: rgba(0, 0, 0, 0.5); border-radius: 4px; margin-top: 0.6rem; overflow: hidden; }
         .demand-fill { height: 100%; border-radius: 4px; }
+        
+        .card-footer { margin-top: auto; padding-top: 1rem; text-align: center; font-size: 0.75rem; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
         /* Calculator Section Layout */
         .calc-wrapper {
@@ -277,7 +281,7 @@
         <button class="btn-enter" onclick="enterMainSite()">Values & Calculator</button>
     </div>
 
-    <!-- MAIN HEADER (Hidden until landing is cleared) -->
+    <!-- MAIN HEADER -->
     <header id="main-header">
         <div class="header-left">
             <div class="menu-btn" onclick="toggleMenu()">
@@ -285,7 +289,7 @@
             </div>
             <div class="logo">PE VALUELIST</div>
         </div>
-        <div class="last-updated">Updated: Aug 15</div>
+        <div class="last-updated">Updated: Aug 16, 2026</div>
     </header>
 
     <div class="side-menu" id="sideMenu">
@@ -453,42 +457,42 @@
         }
 
         const skinsData = [
-            { name: "Classic Sauroposidon", tier: "ultimate", value: 0, strValue: "Owner Choice", trend: "stable", demand: 10, exists: 11 },
-            { name: "Felsic", tier: "ultimate", value: 400, strValue: "350k - 450k", trend: "stable", demand: 9, exists: 75 },
-            { name: "Magma Heart", tier: "ultimate", value: 1000, strValue: "1M", trend: "stable", demand: 10, exists: 26 },
-            { name: "Neptune", tier: "ultimate", value: 700, strValue: "600k - 800k", trend: "rising", demand: 10, exists: 75 },
-            { name: "Thunderheart", tier: "ultimate", value: 1000, strValue: "1M", trend: "stable", demand: 10, exists: 40 },
+            { name: "Classic Sauroposidon", tier: "ultimate", value: 0, strValue: "Owner Choice", trend: "stable", demand: 10, exists: 11, lastUpdated: "Aug 15, 2026" },
+            { name: "Felsic", tier: "ultimate", value: 403.75, strValue: "325k - 482.5k", trend: "stable", demand: 7, exists: 75, lastUpdated: "Aug 16, 2026" },
+            { name: "Magma Heart", tier: "ultimate", value: 1000, strValue: "1M", trend: "stable", demand: 10, exists: 26, lastUpdated: "Aug 15, 2026" },
+            { name: "Neptune", tier: "ultimate", value: 750, strValue: "600k - 900k", trend: "rising", demand: 8, exists: 75, lastUpdated: "Aug 16, 2026" },
+            { name: "Thunderheart", tier: "ultimate", value: 1000, strValue: "1M", trend: "stable", demand: 10, exists: 40, lastUpdated: "Aug 15, 2026" },
             
-            { name: "Agate (Maro Spino)", tier: "mythic", value: 40, strValue: "35k - 45k", trend: "stable", demand: 6 },
-            { name: "Alask sub-species", tier: "mythic", value: 80, strValue: "70k - 90k", trend: "stable", demand: 9 },
-            { name: "Argent sub-species", tier: "mythic", value: 75, strValue: "60k - 90k", trend: "stable", demand: 8 },
-            { name: "Charon Spinosaurus", tier: "mythic", value: 90, strValue: "80k - 100k", trend: "rising", demand: 8 },
-            { name: "Choco (DeinoS)", tier: "mythic", value: 62.5, strValue: "50k - 75k", trend: "rising", demand: 7.5 },
-            { name: "Fire Agate", tier: "mythic", value: 31.5, strValue: "23k - 40k", trend: "rising", demand: 7 },
-            { name: "Geo sail Spino", tier: "mythic", value: 65, strValue: "60k - 70k", trend: "stable", demand: 6 },
-            { name: "Giga sub-species", tier: "mythic", value: 55, strValue: "50k - 60k", trend: "stable", demand: 6 },
-            { name: "King Alask", tier: "mythic", value: 100, strValue: "80k - 120k", trend: "rising", demand: 9 },
-            { name: "Kyanite (DeinoS)", tier: "mythic", value: 50, strValue: "40k - 60k", trend: "rising", demand: 7 },
-            { name: "Liberty", tier: "mythic", value: 80, strValue: "80k", trend: "rising", demand: 7 },
-            { name: "Maroc sub-species", tier: "mythic", value: 70, strValue: "60k - 80k", trend: "stable", demand: 8 },
-            { name: "Multi Eyed", tier: "mythic", value: 275, strValue: "250k - 300k", trend: "rising", demand: 8 },
-            { name: "Sonora", tier: "mythic", value: 65, strValue: "60k - 70k", trend: "stable", demand: 6 },
-            { name: "Split jaw", tier: "mythic", value: 215, strValue: "180k - 250k", trend: "dropping", demand: 7 },
-            { name: "Surtr (Sauro)", tier: "mythic", value: 155, strValue: "140k - 170k", trend: "rising", demand: 7 },
-            { name: "Tealback", tier: "mythic", value: 95, strValue: "80k - 110k", trend: "rising", demand: 7.5 },
-            { name: "Tectonic (Sauro)", tier: "mythic", value: 160, strValue: "140k - 180k", trend: "rising", demand: 7.5 },
+            { name: "Agate (Maro Spino)", tier: "mythic", value: 40, strValue: "35k - 45k", trend: "stable", demand: 6, lastUpdated: "Aug 15, 2026" },
+            { name: "Alask sub-species", tier: "mythic", value: 80, strValue: "70k - 90k", trend: "stable", demand: 9, lastUpdated: "Aug 15, 2026" },
+            { name: "Argent sub-species", tier: "mythic", value: 75, strValue: "60k - 90k", trend: "stable", demand: 8, lastUpdated: "Aug 15, 2026" },
+            { name: "Charon Spinosaurus", tier: "mythic", value: 70, strValue: "60k - 80k", trend: "stable", demand: 6, lastUpdated: "Aug 16, 2026" },
+            { name: "Choco (DeinoS)", tier: "mythic", value: 55, strValue: "50k - 60k", trend: "stable", demand: 3, lastUpdated: "Aug 16, 2026" },
+            { name: "Fire Agate", tier: "mythic", value: 31.5, strValue: "23k - 40k", trend: "stable", demand: 5, lastUpdated: "Aug 16, 2026" },
+            { name: "Geo sail Spino", tier: "mythic", value: 65, strValue: "60k - 70k", trend: "stable", demand: 6, lastUpdated: "Aug 15, 2026" },
+            { name: "Giga sub-species", tier: "mythic", value: 55, strValue: "50k - 60k", trend: "stable", demand: 6, lastUpdated: "Aug 15, 2026" },
+            { name: "King Alask", tier: "mythic", value: 100, strValue: "80k - 120k", trend: "rising", demand: 9, lastUpdated: "Aug 15, 2026" },
+            { name: "Kyanite (DeinoS)", tier: "mythic", value: 50, strValue: "40k - 60k", trend: "stable", demand: 5, lastUpdated: "Aug 16, 2026" },
+            { name: "Liberty", tier: "mythic", value: 70, strValue: "60k - 80k", trend: "stable", demand: 6, lastUpdated: "Aug 16, 2026" },
+            { name: "Maroc sub-species", tier: "mythic", value: 70, strValue: "60k - 80k", trend: "stable", demand: 8, lastUpdated: "Aug 15, 2026" },
+            { name: "Multi Eyed", tier: "mythic", value: 207.5, strValue: "166k - 249k", trend: "dropping", demand: 6, lastUpdated: "Aug 16, 2026" },
+            { name: "Sonora", tier: "mythic", value: 65, strValue: "60k - 70k", trend: "stable", demand: 6, lastUpdated: "Aug 15, 2026" },
+            { name: "Split jaw", tier: "mythic", value: 207.5, strValue: "166k - 249k", trend: "dropping", demand: 7, lastUpdated: "Aug 16, 2026" },
+            { name: "Surtr (Sauro)", tier: "mythic", value: 127.5, strValue: "100k - 155k", trend: "rising", demand: 9, lastUpdated: "Aug 16, 2026" },
+            { name: "Tealback", tier: "mythic", value: 95, strValue: "80k - 110k", trend: "rising", demand: 7.5, lastUpdated: "Aug 15, 2026" },
+            { name: "Tectonic (Sauro)", tier: "mythic", value: 117.5, strValue: "100k - 135k", trend: "rising", demand: 7, lastUpdated: "Aug 16, 2026" },
 
-            { name: "Copper", tier: "legendary", value: 57, strValue: "57k", trend: "stable", demand: 5.5 },
-            { name: "Garden Diplo", tier: "legendary", value: 2.5, strValue: "2.5k", trend: "stable", demand: 2.5 },
-            { name: "Grisnir (Maroccanus)", tier: "legendary", value: 12.5, strValue: "10k - 15k", trend: "stable", demand: 6 },
-            { name: "Mareca (Deinocheirus)", tier: "legendary", value: 12.5, strValue: "10k - 15k", trend: "stable", demand: 6 },
-            { name: "Mjolnir (Ankylosaurus)", tier: "legendary", value: 7.5, strValue: "5k - 10k", trend: "stable", demand: 4.5 },
-            { name: "Nordlys", tier: "legendary", value: 27, strValue: "20k - 34k", trend: "dropping", demand: 3 },
-            { name: "Salmon (Amphiceratops)", tier: "legendary", value: 53, strValue: "46k - 60k", trend: "stable", demand: 5.5 },
-            { name: "Sardonyx (Dynamo)", tier: "legendary", value: 30, strValue: "25k - 35k", trend: "dropping", demand: 6 },
-            { name: "Sleipnir (Edmontosaur)", tier: "legendary", value: 29.5, strValue: "19k - 40k", trend: "stable", demand: 6.5 },
-            { name: "Tombstone", tier: "legendary", value: 10, strValue: "10k", trend: "stable", demand: 4 },
-            { name: "Vernal (Quetz)", tier: "legendary", value: 30, strValue: "25k - 35k", trend: "stable", demand: 5.5 }
+            { name: "Copper", tier: "legendary", value: 57, strValue: "57k", trend: "stable", demand: 5.5, lastUpdated: "Aug 15, 2026" },
+            { name: "Garden Diplo", tier: "legendary", value: 2.5, strValue: "2.5k", trend: "stable", demand: 2.5, lastUpdated: "Aug 15, 2026" },
+            { name: "Grisnir (Maroccanus)", tier: "legendary", value: 12.5, strValue: "10k - 15k", trend: "stable", demand: 6, lastUpdated: "Aug 15, 2026" },
+            { name: "Mareca (Deinocheirus)", tier: "legendary", value: 12.5, strValue: "10k - 15k", trend: "stable", demand: 6, lastUpdated: "Aug 15, 2026" },
+            { name: "Mjolnir (Ankylosaurus)", tier: "legendary", value: 7.5, strValue: "5k - 10k", trend: "stable", demand: 4.5, lastUpdated: "Aug 15, 2026" },
+            { name: "Nordlys", tier: "legendary", value: 27, strValue: "20k - 34k", trend: "dropping", demand: 3, lastUpdated: "Aug 15, 2026" },
+            { name: "Salmon (Amphiceratops)", tier: "legendary", value: 53, strValue: "46k - 60k", trend: "stable", demand: 5.5, lastUpdated: "Aug 15, 2026" },
+            { name: "Sardonyx (Dynamo)", tier: "legendary", value: 30, strValue: "25k - 35k", trend: "dropping", demand: 6, lastUpdated: "Aug 15, 2026" },
+            { name: "Sleipnir (Edmontosaur)", tier: "legendary", value: 29.5, strValue: "19k - 40k", trend: "stable", demand: 6.5, lastUpdated: "Aug 15, 2026" },
+            { name: "Tombstone", tier: "legendary", value: 10, strValue: "10k", trend: "stable", demand: 4, lastUpdated: "Aug 15, 2026" },
+            { name: "Vernal (Quetz)", tier: "legendary", value: 30, strValue: "25k - 35k", trend: "stable", demand: 5.5, lastUpdated: "Aug 15, 2026" }
         ];
 
         const trendMap = {
@@ -561,6 +565,7 @@
                                 <div class="stat-row" style="margin-bottom:0; background:transparent; padding:0;"><span class="stat-label">Demand:</span><span class="stat-value">${s.demand}/10</span></div>
                                 <div class="demand-bar-bg"><div class="demand-fill" style="width: ${s.demand*10}%; background: ${tierColors[s.tier].hex};"></div></div>
                             </div>
+                            <div class="card-footer">Last Updated: ${s.lastUpdated}</div>
                         </div>
                     `).join('')}
                 </div>
